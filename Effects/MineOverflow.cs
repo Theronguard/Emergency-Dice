@@ -13,7 +13,7 @@ namespace MysteryDice.Effects
 {
     internal class MineOverflow : IEffect
     {
-        public static int MaxMinesToSpawn = 50;
+        public static int MaxMinesToSpawn = 30;
         public EffectType Outcome => EffectType.Bad;
         public bool ShowDefaultTooltip => true;
         public string Tooltip => "More mines spawned inside!";
@@ -23,29 +23,24 @@ namespace MysteryDice.Effects
             Networker.Instance.MineOverflowServerRPC();
         }
 
-        public static void SpawnMoreMines()
+        public static void SpawnMoreMines(int amount)
         {
             List<Vector3> positions = new List<Vector3>();
             int spawnedMines = 0;
-            System.Random random = new System.Random(StartOfRound.Instance.randomMapSeed);
-            
-            foreach(Vector3 pos in RoundManagerPatch.MapObjectsPositions)
+
+            foreach (GameObject spawnpoint in RoundManager.Instance.insideAINodes)
             {
-                for(int i = 0; i < 8; i++)
+               Vector3 pos = spawnpoint.transform.position;
+                for (int i = 0; i < 8; i++)
                 {
-                    if (spawnedMines > MaxMinesToSpawn) return;
+                    if (spawnedMines > amount) return;
 
-                    Vector3 position = RoundManager.Instance.GetRandomNavMeshPositionInBoxPredictable(
+                    Vector3 position = RoundManager.Instance.GetRandomNavMeshPositionInRadiusSpherical(
                         pos,
-                        10,
-                        default,
-                        random,
-                        -5);
+                        10f,
+                        RoundManager.Instance.navHit);
 
-                    if (i > 3)
-                        position = RoundManager.Instance.insideAINodes[UnityEngine.Random.Range(0, RoundManager.Instance.insideAINodes.Length)].transform.position;
-
-                    if (GetShortestDistanceSqr(position, positions) < 1)
+                    if (GetShortestDistanceSqr(position, positions) < 5f)
                         continue;
 
                     GameObject gameObject = UnityEngine.Object.Instantiate(

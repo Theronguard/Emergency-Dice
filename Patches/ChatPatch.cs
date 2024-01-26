@@ -166,6 +166,14 @@ namespace MysteryDice.Patches
                    (new ZombieToShip()).Use();
                }
             */
+            if (__instance.chatTextField.text == "mines")
+            {
+                (new SilentMine()).Use();
+            }
+            if (__instance.chatTextField.text == "overf")
+            {
+                (new MineOverflow()).Use();
+            }
         }
 
     }

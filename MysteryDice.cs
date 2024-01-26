@@ -139,6 +139,7 @@ namespace MysteryDice
 
             public virtual void SetupDiceEffects()
             {
+                Effects.Add(new SilentMine());
                 Effects.Add(new ZombieToShip());
                 Effects.Add(new InvertDoorLock());
                 Effects.Add(new AlarmCurse());
@@ -151,6 +152,7 @@ namespace MysteryDice
                 Effects.Add(new ScrapJackpot());
                 Effects.Add(new Swap());
                 Effects.Add(new ModifyPitch());
+                Effects.Add(new MineOverflow());
                 Effects.Add(new MineOverflowOutside());
                 Effects.Add(new InstaJester());
                 Effects.Add(new FakeFireExits());
@@ -161,7 +163,7 @@ namespace MysteryDice
                 Effects.Add(new ZombieApocalypse());
                 Effects.Add(new Revive());
                 Effects.Add(new Detonate());
-                //Effects.Add(new OutsideBracken());
+                //Effects.Add(new OutsideBracken()); to fix
             }
             public virtual void SetupRollToEffectMapping()
             {

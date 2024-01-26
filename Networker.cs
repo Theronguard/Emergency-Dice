@@ -236,7 +236,7 @@ namespace MysteryDice
         [ServerRpc(RequireOwnership = false)]
         public void MineOverflowServerRPC()
         {
-            MineOverflow.SpawnMoreMines();
+            MineOverflow.SpawnMoreMines(MineOverflow.MaxMinesToSpawn);
         }
         #endregion
 
@@ -545,6 +545,22 @@ namespace MysteryDice
         public void SyncSuitIDClientRPC(NetworkObjectReference zombieNet, int zombieSuitID)
         {
             ZombieToShip.ZombieSetSuit(zombieNet,zombieSuitID);
+        }
+        #endregion
+
+        #region SilentMine
+
+        [ServerRpc(RequireOwnership = false)]
+        public void SilenceMinesServerRPC()
+        {
+            StartCoroutine(SilentMine.SilenceAllMines());
+            SilenceMinesClientRPC();
+        }
+
+        [ClientRpc]
+        public void SilenceMinesClientRPC()
+        {
+            StartCoroutine(SilentMine.SilenceAllMines());
         }
         #endregion
     }

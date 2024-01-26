@@ -81,6 +81,7 @@
     <Compile Include="Effects\AlarmCurse.cs" />
     <Compile Include="Effects\JumpscareGlitch.cs" />
     <Compile Include="Effects\Armageddon.cs" />
+    <Compile Include="Effects\SilentMine.cs" />
     <Compile Include="Effects\ZombieToShip.cs" />
     <Compile Include="Effects\Wormageddon.cs" />
     <Compile Include="Effects\Beepocalypse.cs" />
