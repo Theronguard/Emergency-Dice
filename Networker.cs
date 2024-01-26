@@ -323,29 +323,6 @@ namespace MysteryDice
         public void HealAllServerRPC()
         {
             HealAllClientRPC();
-            /*
-            foreach (GameObject playerPrefab in StartOfRound.Instance.allPlayerObjects)
-            {
-                PlayerControllerB player = playerPrefab.GetComponent<PlayerControllerB>();
-
-                if(player == null) continue;
-                if (!IsPlayerAlive(player)) continue;
-
-                MysteryDice.CustomLogger.LogFatal("HEALED!");
-
-                Heal(player);
-                /*
-                foreach(var item in player.ItemSlots)
-                {
-                    if(item.insertedBattery != null)
-                    {
-                        item.insertedBattery = new Battery(false, 1f);
-                        item.SyncBatteryClientRpc(100);
-                    }
-                }
-                
-            }
-            */
         }
 
         [ClientRpc]
