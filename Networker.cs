@@ -563,5 +563,52 @@ namespace MysteryDice
             StartCoroutine(SilentMine.SilenceAllMines());
         }
         #endregion
+
+        #region TurretHell
+
+        [ServerRpc(RequireOwnership = false)]
+        public void TuretHellServerRPC()
+        {
+            TurretPatch.FastCharging = true;
+            TurretHellClientRPC();
+        }
+
+        [ClientRpc]
+        public void TurretHellClientRPC()
+        {
+            TurretPatch.FastCharging = true;
+            TurretHell.SpawnTurrets(TurretHell.MaxTurretsToSpawn);
+        }
+        #endregion
+
+        #region ShipTurret
+
+        [ServerRpc(RequireOwnership = false)]
+        public void ShipTurretServerRPC()
+        {
+            ShipTurretClientRPC();
+        }
+
+        [ClientRpc]
+        public void ShipTurretClientRPC()
+        {
+            ShipTurret.SpawnTurretsShip(ShipTurret.MaxTurretsToSpawn);
+        }
+        #endregion
+
+        #region Shotgun
+
+        [ServerRpc(RequireOwnership = false)]
+        public void ShotgunServerRPC()
+        {
+            ShotgunClientRPC();
+        }
+
+        [ClientRpc]
+        public void ShotgunClientRPC()
+        {
+            Shotgun.SpawnShotgun();
+        }
+        #endregion
     }
 }

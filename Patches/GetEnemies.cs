@@ -14,6 +14,7 @@ namespace MysteryDice.Patches
     {
 
         public static SpawnableEnemyWithRarity Masked, HoardingBug, Centipede, Jester, Bracken, Stomper, Coilhead, Beehive, Sandworm;
+        public static SpawnableMapObject SpawnableLandmine, SpawnableTurret;
 
         [HarmonyPatch("Start")]
         [HarmonyPostfix]
@@ -38,17 +39,36 @@ namespace MysteryDice.Patches
                     if (enemy.enemyType.enemyName == "Spring")
                         Coilhead = enemy;
                 }
+
                 foreach (SpawnableEnemyWithRarity enemy in level.DaytimeEnemies)
                 {
                     if (enemy.enemyType.enemyName == "Red Locust Bees")
                         Beehive = enemy;
                 }
+
                 foreach (SpawnableEnemyWithRarity enemy in level.OutsideEnemies)
                 {
                    
                     if (enemy.enemyType.enemyName == "Earth Leviathan")
                     {
                         Sandworm = enemy;
+                    }
+                }
+
+                foreach (var item in level.spawnableMapObjects)
+                {
+                    for (int i = 0; i < 50; i++)
+                        MysteryDice.CustomLogger.LogInfo(item.prefabToSpawn.name);
+
+                    if (item.prefabToSpawn.name == "Landmine" && SpawnableLandmine == null)
+                    {
+                        SpawnableLandmine = item;
+                        break;
+                    }
+                    if (item.prefabToSpawn.name == "TurretContainer" && SpawnableTurret == null)
+                    {
+                        SpawnableTurret = item;
+                        break;
                     }
                 }
             }

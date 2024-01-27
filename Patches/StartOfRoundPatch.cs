@@ -17,8 +17,6 @@ namespace MysteryDice.Patches
     [HarmonyPatch(typeof(StartOfRound))]
     internal class StartOfRoundPatch
     {
-        public static SpawnableMapObject SpawnableLandmine = null;
-
         [HarmonyPostfix]
         [HarmonyPatch("Start")]
         public static void InstantiateNetworker(StartOfRound __instance)
@@ -39,15 +37,6 @@ namespace MysteryDice.Patches
         {
             if (!Networker.Instance.IsServer) return;
 
-            foreach (var item in __instance.currentLevel.spawnableMapObjects)
-            {
-                if (item.prefabToSpawn.name == "Landmine")
-                {
-                    SpawnableLandmine = item;
-                    break;
-                }
-            }
-            
             Networker.Instance.OnStartRoundClientRPC();
             ResetSettingsShared();
         }
@@ -88,6 +77,7 @@ namespace MysteryDice.Patches
             ModifyPitch.ResetPitch();
             Armageddon.IsEnabled = false;
             AlarmCurse.IsCursed = false;
+            TurretPatch.FastCharging = false;
         }
 
     }

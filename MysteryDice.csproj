@@ -81,6 +81,9 @@
     <Compile Include="Effects\AlarmCurse.cs" />
     <Compile Include="Effects\JumpscareGlitch.cs" />
     <Compile Include="Effects\Armageddon.cs" />
+    <Compile Include="Effects\Shotgun.cs" />
+    <Compile Include="Effects\ShipTurret.cs" />
+    <Compile Include="Effects\TurretHell.cs" />
     <Compile Include="Effects\SilentMine.cs" />
     <Compile Include="Effects\ZombieToShip.cs" />
     <Compile Include="Effects\Wormageddon.cs" />
@@ -107,6 +110,7 @@
     <Compile Include="Effects\IEffect.cs" />
     <Compile Include="MysteryDice.cs" />
     <Compile Include="Networker.cs" />
+    <Compile Include="Patches\TurretPatch.cs" />
     <Compile Include="Patches\FireExitPatch.cs" />
     <Compile Include="Patches\ChatPatch.cs" />
     <Compile Include="Patches\PlayerControllerBPatch.cs" />

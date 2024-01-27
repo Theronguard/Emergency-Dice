@@ -45,7 +45,7 @@ namespace MysteryDice.Effects
                         continue;
 
                     GameObject gameObject = UnityEngine.Object.Instantiate(
-                    StartOfRoundPatch.SpawnableLandmine.prefabToSpawn,
+                    GetEnemies.SpawnableLandmine.prefabToSpawn,
                     position,
                     Quaternion.identity,
                     RoundManager.Instance.mapPropsContainer.transform);

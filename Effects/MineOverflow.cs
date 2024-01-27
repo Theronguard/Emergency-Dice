@@ -31,29 +31,26 @@ namespace MysteryDice.Effects
             foreach (GameObject spawnpoint in RoundManager.Instance.insideAINodes)
             {
                Vector3 pos = spawnpoint.transform.position;
-                for (int i = 0; i < 8; i++)
-                {
-                    if (spawnedMines > amount) return;
 
-                    Vector3 position = RoundManager.Instance.GetRandomNavMeshPositionInRadiusSpherical(
-                        pos,
-                        10f,
-                        RoundManager.Instance.navHit);
+                if (spawnedMines > amount) return;
 
-                    if (GetShortestDistanceSqr(position, positions) < 5f)
-                        continue;
+                Vector3 position = RoundManager.Instance.GetRandomNavMeshPositionInRadiusSpherical(pos);
 
-                    GameObject gameObject = UnityEngine.Object.Instantiate(
-                    StartOfRoundPatch.SpawnableLandmine.prefabToSpawn,
+                if (GetShortestDistanceSqr(position, positions) < 1f)
+                    continue;
+
+                GameObject gameObject = UnityEngine.Object.Instantiate(
+                    GetEnemies.SpawnableLandmine.prefabToSpawn,
                     position,
                     Quaternion.identity,
-                    RoundManager.Instance.mapPropsContainer.transform);
+                    RoundManager.Instance.mapPropsContainer.transform
+                    );
 
-                    positions.Add(position);
-                    gameObject.transform.eulerAngles = new Vector3(gameObject.transform.eulerAngles.x, UnityEngine.Random.Range(0, 360), gameObject.transform.eulerAngles.z);
-                    gameObject.GetComponent<NetworkObject>().Spawn(destroyWithScene: true);
-                    spawnedMines++;
-                }
+                positions.Add(position);
+                gameObject.transform.eulerAngles = new Vector3(gameObject.transform.eulerAngles.x, UnityEngine.Random.Range(0, 360), gameObject.transform.eulerAngles.z);
+                gameObject.GetComponent<NetworkObject>().Spawn(destroyWithScene: true);
+                spawnedMines++;
+
             }
         }
 

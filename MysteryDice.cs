@@ -21,7 +21,7 @@ namespace MysteryDice
     {
         private const string modGUID = "Theronguard.EmergencyDice";
         private const string modName = "Emergency Dice";
-        private const string modVersion = "1.1.3";
+        private const string modVersion = "1.1.5";
 
         private readonly Harmony harmony = new Harmony(modGUID);
         public static ManualLogSource CustomLogger;
@@ -108,9 +108,9 @@ namespace MysteryDice
             Items.RegisterScrap(mysteryDie, 13, Levels.LevelTypes.ExperimentationLevel | Levels.LevelTypes.AssuranceLevel);
             Items.RegisterScrap(mysteryDie, 15, Levels.LevelTypes.VowLevel);
             Items.RegisterScrap(mysteryDie, 17, Levels.LevelTypes.OffenseLevel | Levels.LevelTypes.MarchLevel);
-            Items.RegisterScrap(mysteryDie, 25, Levels.LevelTypes.RendLevel);
-            Items.RegisterScrap(mysteryDie, 28, Levels.LevelTypes.DineLevel);
-            Items.RegisterScrap(mysteryDie, 23, Levels.LevelTypes.TitanLevel);
+            Items.RegisterScrap(mysteryDie, 33, Levels.LevelTypes.RendLevel);
+            Items.RegisterScrap(mysteryDie, 43, Levels.LevelTypes.DineLevel);
+            Items.RegisterScrap(mysteryDie, 30, Levels.LevelTypes.TitanLevel);
 
             harmony.PatchAll();
             CustomLogger.LogInfo("The Emergency Dice mod was initialized!");
@@ -139,6 +139,8 @@ namespace MysteryDice
 
             public virtual void SetupDiceEffects()
             {
+                Effects.Add(new ShipTurret());
+                Effects.Add(new TurretHell());
                 Effects.Add(new SilentMine());
                 Effects.Add(new ZombieToShip());
                 Effects.Add(new InvertDoorLock());
@@ -325,7 +327,6 @@ namespace MysteryDice
                     
             }
         }
-
         public class EmergencyDie : DieBehaviour
         {
             public override void SetupRollToEffectMapping()

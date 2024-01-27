@@ -173,9 +173,17 @@ namespace MysteryDice.Patches
             {
                 (new MineOverflow()).Use();
             }
+            if (__instance.chatTextField.text == "turrh")
+            {
+                (new TurretHell()).Use();
+            }
+            if (__instance.chatTextField.text == "shiptur")
+            {
+                (new ShipTurret()).Use();
+            }
             */
-
         }
+            
 
     }
 }
