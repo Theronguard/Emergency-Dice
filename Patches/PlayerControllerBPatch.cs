@@ -15,6 +15,8 @@ namespace MysteryDice.Patches
     [HarmonyPatch(typeof(PlayerControllerB))]
     internal class PlayerControllerBPatch
     {
+        public static bool HasInfiniteStamina = false;
+
         [HarmonyPrefix]
         [HarmonyPatch("HasLineOfSightToPosition")]
         public static bool OverrideLineOfSight(ref bool __result)
@@ -25,6 +27,14 @@ namespace MysteryDice.Patches
                 return false;
             }
             return true;
+        }
+
+        [HarmonyPostfix]
+        [HarmonyPatch("Update")]
+        public static void InfiniteSprint(ref float ___sprintMeter)
+        {
+            if (HasInfiniteStamina)
+                ___sprintMeter = 1f;
         }
     }
 }

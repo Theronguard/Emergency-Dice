@@ -27,7 +27,7 @@ namespace MysteryDice.Effects
         {
             MineOverflow.SpawnMoreMines(10);
 
-            yield return new WaitForSeconds(4); //lazy fix to allow all clients to sync
+            yield return new WaitForSeconds(5); //lazy fix to allow all clients to sync
 
             Landmine[] landmines = GameObject.FindObjectsOfType<Landmine>();
 
@@ -35,7 +35,12 @@ namespace MysteryDice.Effects
             {
                 mine.mineAudio.volume = 0f;
                 mine.mineAnimator.StopPlayback();
-                GameObject.Destroy(mine.GetComponent<MeshRenderer>());
+                Renderer[] renderers = mine.GetComponentsInChildren<Renderer>();
+
+                foreach(Renderer renderer in renderers)
+                {
+                    GameObject.Destroy(renderer);
+                }   
             }
         }
        

@@ -57,14 +57,10 @@ namespace MysteryDice.Patches
 
                 foreach (var item in level.spawnableMapObjects)
                 {
-                    for (int i = 0; i < 50; i++)
-                        MysteryDice.CustomLogger.LogInfo(item.prefabToSpawn.name);
-
                     if (item.prefabToSpawn.name == "Landmine" && SpawnableLandmine == null)
-                    {
                         SpawnableLandmine = item;
                         break;
-                    }
+
                     if (item.prefabToSpawn.name == "TurretContainer" && SpawnableTurret == null)
                     {
                         SpawnableTurret = item;

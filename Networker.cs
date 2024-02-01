@@ -560,7 +560,8 @@ namespace MysteryDice
         [ClientRpc]
         public void SilenceMinesClientRPC()
         {
-            StartCoroutine(SilentMine.SilenceAllMines());
+            if(!IsServer)
+                StartCoroutine(SilentMine.SilenceAllMines());
         }
         #endregion
 
@@ -570,6 +571,7 @@ namespace MysteryDice
         public void TuretHellServerRPC()
         {
             TurretPatch.FastCharging = true;
+            TurretHell.SpawnTurrets(TurretHell.MaxTurretsToSpawn);
             TurretHellClientRPC();
         }
 
@@ -577,7 +579,6 @@ namespace MysteryDice
         public void TurretHellClientRPC()
         {
             TurretPatch.FastCharging = true;
-            TurretHell.SpawnTurrets(TurretHell.MaxTurretsToSpawn);
         }
         #endregion
 
@@ -585,12 +586,6 @@ namespace MysteryDice
 
         [ServerRpc(RequireOwnership = false)]
         public void ShipTurretServerRPC()
-        {
-            ShipTurretClientRPC();
-        }
-
-        [ClientRpc]
-        public void ShipTurretClientRPC()
         {
             ShipTurret.SpawnTurretsShip(ShipTurret.MaxTurretsToSpawn);
         }
@@ -601,14 +596,39 @@ namespace MysteryDice
         [ServerRpc(RequireOwnership = false)]
         public void ShotgunServerRPC()
         {
-            ShotgunClientRPC();
+            Shotgun.SpawnShotgun();
+        }
+        #endregion
+
+        #region Pathfinder
+
+        [ServerRpc(RequireOwnership = false)]
+        public void PathfinderSpawnBlobsServerRPC()
+        {
+            Pathfinder.SpawnBlobs();
+        }
+
+        [ServerRpc(RequireOwnership = false)]
+        public void PathfinderGiveSpawnerServerRPC(ulong playerID)
+        {
+            Pathfinder.GiveBlobItem(playerID);
+        }
+        #endregion
+
+        #region InfiniteStaminaAll
+
+        [ServerRpc(RequireOwnership = false)]
+        public void InfiniteStaminaAllServerRPC()
+        {
+            InfiniteStaminaAllClientRPC();
         }
 
         [ClientRpc]
-        public void ShotgunClientRPC()
+        public void InfiniteStaminaAllClientRPC()
         {
-            Shotgun.SpawnShotgun();
+            PlayerControllerBPatch.HasInfiniteStamina = true;
         }
         #endregion
     }
 }
+

@@ -13,6 +13,7 @@ namespace MysteryDice.Effects
         public EffectType Outcome => EffectType.Great;
         public bool ShowDefaultTooltip => false;
         public string Tooltip => "Returning to ship with your nearest crewmates!";
+
         public static float DistanceToCaller = 8f;
         public void Use()
         {

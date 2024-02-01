@@ -77,10 +77,18 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Dice\SacrificerDie.cs" />
+    <Compile Include="Dice\DieBehaviour.cs" />
+    <Compile Include="Dice\EmergencyDie.cs" />
+    <Compile Include="Dice\ChronosDie.cs" />
+    <Compile Include="Dice\GamblerDie.cs" />
+    <Compile Include="Effects\InfiniteStaminaAll.cs" />
     <Compile Include="Effects\InvertDoorLock.cs" />
     <Compile Include="Effects\AlarmCurse.cs" />
     <Compile Include="Effects\JumpscareGlitch.cs" />
     <Compile Include="Effects\Armageddon.cs" />
+    <Compile Include="Effects\Pathfinder.cs" />
+    <Compile Include="Effects\InfiniteStamina.cs" />
     <Compile Include="Effects\Shotgun.cs" />
     <Compile Include="Effects\ShipTurret.cs" />
     <Compile Include="Effects\TurretHell.cs" />
@@ -108,6 +116,7 @@
     <Compile Include="Effects\Revive.cs" />
     <Compile Include="Effects\Detonate.cs" />
     <Compile Include="Effects\IEffect.cs" />
+    <Compile Include="Libraries\WeightedList.cs" />
     <Compile Include="MysteryDice.cs" />
     <Compile Include="Networker.cs" />
     <Compile Include="Patches\TurretPatch.cs" />
@@ -127,6 +136,7 @@
       <DependentUpon>Settings.settings</DependentUpon>
     </Compile>
     <Compile Include="Misc.cs" />
+    <Compile Include="Visual\ColorGradient.cs" />
     <Compile Include="Visual\CycleSigns.cs" />
     <Compile Include="Visual\Blinking.cs" />
     <Compile Include="Visual\Jumpscare.cs" />

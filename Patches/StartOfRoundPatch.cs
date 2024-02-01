@@ -78,6 +78,7 @@ namespace MysteryDice.Patches
             Armageddon.IsEnabled = false;
             AlarmCurse.IsCursed = false;
             TurretPatch.FastCharging = false;
+            PlayerControllerBPatch.HasInfiniteStamina = false;
         }
 
     }
