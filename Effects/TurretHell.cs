@@ -13,6 +13,7 @@ namespace MysteryDice.Effects
 {
     internal class TurretHell : IEffect
     {
+        public string Name => "TurretHell";
         public static int MaxTurretsToSpawn = 10;
         public EffectType Outcome => EffectType.Awful;
         public bool ShowDefaultTooltip => true;

@@ -10,6 +10,7 @@ namespace MysteryDice.Effects
 {
     internal class Detonate : IEffect
     {
+        public string Name => "Detonate";
         public EffectType Outcome => EffectType.Awful;
         public bool ShowDefaultTooltip => true;
         public string Tooltip => "A random player will soon explode";

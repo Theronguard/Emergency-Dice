@@ -10,6 +10,7 @@ namespace MysteryDice.Effects
 {
     internal class FakeFireExits : IEffect
     {
+        public string Name => "FakeFireExits";
         public EffectType Outcome => EffectType.Bad;
         public bool ShowDefaultTooltip => true;
         public string Tooltip => "More fire exits!";

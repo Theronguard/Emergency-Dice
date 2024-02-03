@@ -14,6 +14,7 @@ namespace MysteryDice.Effects
 {
     internal class SilentMine : IEffect
     {
+        public string Name => "SilentMine";
         public EffectType Outcome => EffectType.Awful;
         public bool ShowDefaultTooltip => true;
         public string Tooltip => "Mines are silent";

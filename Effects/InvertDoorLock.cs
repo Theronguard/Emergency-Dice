@@ -11,6 +11,7 @@ namespace MysteryDice.Effects
 {
     internal class InvertDoorLock : IEffect
     {
+        public string Name => "InvertDoorLock";
         public EffectType Outcome => EffectType.Bad;
         public bool ShowDefaultTooltip => true;
         public string Tooltip => "Check the doors";

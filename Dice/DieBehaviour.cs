@@ -18,37 +18,7 @@ namespace MysteryDice.Dice
 
         public virtual void SetupDiceEffects()
         {
-            Effects.Add(new InfiniteStaminaAll());
-            Effects.Add(new InfiniteStamina());
-            Effects.Add(new Pathfinder());
-            Effects.Add(new Shotgun());
-            Effects.Add(new ShipTurret());
-            Effects.Add(new TurretHell());
-            Effects.Add(new SilentMine());
-            Effects.Add(new ZombieToShip());
-            Effects.Add(new InvertDoorLock());
-            Effects.Add(new AlarmCurse());
-            Effects.Add(new JumpscareGlitch());
-            Effects.Add(new Armageddon());
-            Effects.Add(new Beepocalypse());
-            Effects.Add(new RebeliousCoilHeads());
-            Effects.Add(new TurnOffLights());
-            Effects.Add(new HealAndRestore());
-            Effects.Add(new ScrapJackpot());
-            Effects.Add(new Swap());
-            Effects.Add(new ModifyPitch());
-            Effects.Add(new MineOverflow());
-            Effects.Add(new MineOverflowOutside());
-            Effects.Add(new InstaJester());
-            Effects.Add(new FakeFireExits());
-            Effects.Add(new FireExitBlock());
-            Effects.Add(new ReturnToShip());
-            Effects.Add(new TeleportInside());
-            Effects.Add(new BugPlague());
-            Effects.Add(new ZombieApocalypse());
-            Effects.Add(new Revive());
-            Effects.Add(new Detonate());
-            //Effects.Add(new OutsideBracken()); to fix
+            Effects.AddRange(MysteryDice.EffectConfig.getEnabledEffects());
         }
         public virtual void SetupRollToEffectMapping()
         {

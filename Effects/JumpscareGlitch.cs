@@ -10,6 +10,7 @@ namespace MysteryDice.Effects
 {
     internal class JumpscareGlitch : IEffect
     {
+        public string Name => "JumpscareGlitch";
         public EffectType Outcome => EffectType.Bad;
         public bool ShowDefaultTooltip => true;
         public string Tooltip => "Boo!";

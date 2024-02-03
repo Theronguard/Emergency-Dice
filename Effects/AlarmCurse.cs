@@ -10,6 +10,7 @@ namespace MysteryDice.Effects
 {
     internal class AlarmCurse : IEffect
     {
+        public string Name => "AlarmCurse";
         public EffectType Outcome => EffectType.Bad;
         public bool ShowDefaultTooltip => true;
         public string Tooltip => "Alarm!";

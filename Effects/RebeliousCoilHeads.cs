@@ -10,6 +10,7 @@ namespace MysteryDice.Effects
 {
     internal class RebeliousCoilHeads : IEffect
     {
+        public string Name => "RebeliousCoilHeads";
         public EffectType Outcome => EffectType.Awful;
         public bool ShowDefaultTooltip => true;
         public string Tooltip => "Coilheads randomly ignore if a player is looking at them.";

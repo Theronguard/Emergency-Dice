@@ -58,13 +58,13 @@ namespace MysteryDice.Patches
                 foreach (var item in level.spawnableMapObjects)
                 {
                     if (item.prefabToSpawn.name == "Landmine" && SpawnableLandmine == null)
+                    {
                         SpawnableLandmine = item;
-                        break;
+                    }
 
                     if (item.prefabToSpawn.name == "TurretContainer" && SpawnableTurret == null)
                     {
                         SpawnableTurret = item;
-                        break;
                     }
                 }
             }

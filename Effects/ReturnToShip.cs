@@ -10,6 +10,7 @@ namespace MysteryDice.Effects
 {
     internal class ReturnToShip : IEffect
     {
+        public string Name => "ReturnToShip";
         public EffectType Outcome => EffectType.Good;
         public bool ShowDefaultTooltip => false;
         public string Tooltip => "Returning to ship with items!";

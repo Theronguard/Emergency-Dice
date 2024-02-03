@@ -44,6 +44,7 @@ namespace MysteryDice.Dice
             IEffect randomEffect = GetRandomEffect(diceRoll, Effects);
 
             if (randomEffect == null) return;
+            Console.WriteLine("Rolled a " + randomEffect.Name);
 
             PlaySoundBasedOnEffect(randomEffect.Outcome);
 

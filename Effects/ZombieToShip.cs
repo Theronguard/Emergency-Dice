@@ -11,6 +11,7 @@ namespace MysteryDice.Effects
 {
     internal class ZombieToShip : IEffect
     {
+        public string Name => "ZombieToShip";
         public EffectType Outcome => EffectType.Awful;
         public bool ShowDefaultTooltip => true;
         public string Tooltip => "Returning to ship with items!";

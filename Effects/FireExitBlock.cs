@@ -10,6 +10,7 @@ namespace MysteryDice.Effects
 {
     internal class FireExitBlock : IEffect
     {
+        public string Name => "FireExitBlocks";
         public EffectType Outcome => EffectType.Bad;
         public bool ShowDefaultTooltip => true;
         public string Tooltip => "Fire exit blocked!";

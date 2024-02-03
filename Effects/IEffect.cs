@@ -18,6 +18,7 @@ namespace MysteryDice.Effects
 
     public interface IEffect
     {
+        string Name { get; }
         EffectType Outcome { get; }
         bool ShowDefaultTooltip { get; }
         string Tooltip { get; }

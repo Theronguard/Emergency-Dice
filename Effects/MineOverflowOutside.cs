@@ -13,6 +13,7 @@ namespace MysteryDice.Effects
 {
     internal class MineOverflowOutside : IEffect
     {
+        public string Name => "MineOverflowOutside";
         public static int MaxMinesToSpawn = 80;
         public EffectType Outcome => EffectType.Bad;
         public bool ShowDefaultTooltip => true;

@@ -10,6 +10,7 @@ namespace MysteryDice.Effects
 {
     internal class TeleportInside : IEffect
     {
+        public string Name => "TeleportInside";
         public EffectType Outcome => EffectType.Bad;
         public bool IsNegative { get { return true; } }
         public bool ShowDefaultTooltip => true;

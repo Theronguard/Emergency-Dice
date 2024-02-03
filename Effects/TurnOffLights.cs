@@ -10,6 +10,7 @@ namespace MysteryDice.Effects
 {
     internal class TurnOffLights : IEffect
     {
+        public string Name => "TurnOffLights";
         public EffectType Outcome => EffectType.Bad;
         public bool ShowDefaultTooltip => true;
         public string Tooltip => "Turns off all lights";

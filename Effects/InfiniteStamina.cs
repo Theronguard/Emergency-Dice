@@ -7,6 +7,7 @@ namespace MysteryDice.Effects
 {
     internal class InfiniteStamina : IEffect
     {
+        public string Name => "InfiniteStamina";
         public EffectType Outcome => EffectType.Good;
         public bool ShowDefaultTooltip => false;
         public string Tooltip => "Infinite stamina for you";

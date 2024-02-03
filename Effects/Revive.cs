@@ -6,6 +6,7 @@ namespace MysteryDice.Effects
 {
     internal class Revive : IEffect
     {
+        public string Name => "Revive";
         public EffectType Outcome => EffectType.Great;
         public bool ShowDefaultTooltip => false;
         public string Tooltip => "Reviving everyone";

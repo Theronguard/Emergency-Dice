@@ -11,6 +11,7 @@ namespace MysteryDice.Effects
 {
     internal class Pathfinder : IEffect
     {
+        public string Name => "Pathfinder";
         public EffectType Outcome => EffectType.Great;
         public bool ShowDefaultTooltip => false;
         public string Tooltip => "You got a pathfinder!";

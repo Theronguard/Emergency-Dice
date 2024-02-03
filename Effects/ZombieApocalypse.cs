@@ -7,6 +7,7 @@ namespace MysteryDice.Effects
 {
     internal class ZombieApocalypse : IEffect
     {
+        public string Name => "ZombieApocalypse";
         public EffectType Outcome => EffectType.Awful;
         public bool ShowDefaultTooltip => true;
         public string Tooltip => "Zombie apocalypse!";
