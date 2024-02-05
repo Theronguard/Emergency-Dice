@@ -8,8 +8,8 @@ namespace MysteryDice.Effects
 {
     internal class InstaJester : IEffect
     {
+        public string Name => "Instajester";
         public EffectType Outcome => EffectType.Awful;
-
         public bool ShowDefaultTooltip => true;
         public string Tooltip => "Spawned a popped jester!";
 

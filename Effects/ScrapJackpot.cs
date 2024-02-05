@@ -10,9 +10,10 @@ namespace MysteryDice.Effects
 {
     internal class ScrapJackpot : IEffect
     {
+        public string Name => "Scrap jackpot";
         public EffectType Outcome => EffectType.Great;
         public bool ShowDefaultTooltip => false;
-        public string Tooltip => "Spawning scrap!";
+        public string Tooltip => "Spawning more scrap!";
 
         public void Use()
         {

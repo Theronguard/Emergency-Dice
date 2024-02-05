@@ -8,6 +8,7 @@ using System.Threading.Tasks;
 using Unity.Netcode;
 using UnityEngine;
 using MysteryDice.Effects;
+using MysteryDice.Dice;
 
 namespace MysteryDice.Patches
 {

@@ -1,5 +1,7 @@
 ﻿using LethalLib.Modules;
+using MysteryDice.Effects;
 using System.Collections;
+using Unity.Netcode;
 using UnityEngine;
 
 namespace MysteryDice.Visual
@@ -7,12 +9,19 @@ namespace MysteryDice.Visual
     public class Jumpscare : MonoBehaviour
     {
         bool IsScaring = false;
-        GameObject ImageGObj = null;
+        GameObject ScaryFace = null;
+        GameObject NotScaryFace = null;
+
         Vector2 BaseSize = new Vector2(4f, 4f);
         void Start()
         {
-            ImageGObj = transform.GetChild(0).gameObject;
-            ImageGObj.SetActive(false);
+            if (JumpscareGlitch.PussyMode)
+                BaseSize = new Vector2(1f, 1f);
+
+            NotScaryFace = transform.GetChild(0).gameObject;
+            ScaryFace = transform.GetChild(1).gameObject;
+            ScaryFace.SetActive(false);
+            NotScaryFace.SetActive(false);
         }
 
         public void Scare()
@@ -23,20 +32,25 @@ namespace MysteryDice.Visual
         {
             if (!IsScaring) return;
 
-            ImageGObj.transform.localScale = new Vector3(BaseSize.x + UnityEngine.Random.Range(0f, 0.2f), BaseSize.y + UnityEngine.Random.Range(0f, 0.2f),1f);
+            ScaryFace.transform.localScale = new Vector3(BaseSize.x + UnityEngine.Random.Range(0f, 0.2f), BaseSize.y + UnityEngine.Random.Range(0f, 0.2f),1f);
         }
 
         IEnumerator ScareTime()
         {
-            AudioSource.PlayClipAtPoint(MysteryDice.JumpscareSFX, GameNetworkManager.Instance.localPlayerController.transform.position,10f);
-            AudioSource.PlayClipAtPoint(MysteryDice.JumpscareSFX, GameNetworkManager.Instance.localPlayerController.transform.position, 10f);
-            AudioSource.PlayClipAtPoint(MysteryDice.JumpscareSFX, GameNetworkManager.Instance.localPlayerController.transform.position, 10f);
-            AudioSource.PlayClipAtPoint(MysteryDice.JumpscareSFX, GameNetworkManager.Instance.localPlayerController.transform.position, 10f);
+            AudioClip sfx = JumpscareGlitch.PussyMode ? MysteryDice.PurrSFX : MysteryDice.JumpscareSFX;
+
+            AudioSource.PlayClipAtPoint(sfx, GameNetworkManager.Instance.localPlayerController.transform.position, 10f);
+            AudioSource.PlayClipAtPoint(sfx, GameNetworkManager.Instance.localPlayerController.transform.position, 10f);
+            AudioSource.PlayClipAtPoint(sfx, GameNetworkManager.Instance.localPlayerController.transform.position, 10f);
+            AudioSource.PlayClipAtPoint(sfx, GameNetworkManager.Instance.localPlayerController.transform.position, 10f);
+
+            GameObject faceToShow = JumpscareGlitch.PussyMode ? NotScaryFace : ScaryFace;
+
             IsScaring = true;
-            ImageGObj.SetActive(true);
+            faceToShow.SetActive(true);
             yield return new WaitForSeconds(1.3f);
             IsScaring = false;
-            ImageGObj.SetActive(false);
+            faceToShow.SetActive(false);
         }
     }
 }

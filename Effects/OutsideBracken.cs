@@ -9,6 +9,7 @@ namespace MysteryDice.Effects
 {
     internal class OutsideBracken : IEffect
     {
+        public string Name => "Outside bracken";
         public EffectType Outcome => EffectType.Awful;
         public bool ShowDefaultTooltip => true;
         public string Tooltip => "Spawned a bracken outside!";

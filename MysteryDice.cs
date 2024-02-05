@@ -9,6 +9,7 @@ using MysteryDice.Effects;
 using MysteryDice.Visual;
 using MysteryDice.Dice;
 using System;
+using BepInEx.Configuration;
 
 namespace MysteryDice
 {
@@ -17,7 +18,7 @@ namespace MysteryDice
     {
         private const string modGUID = "Theronguard.EmergencyDice";
         private const string modName = "Emergency Dice";
-        private const string modVersion = "1.1.5";
+        private const string modVersion = "1.1.9";
 
         private readonly Harmony harmony = new Harmony(modGUID);
         public static ManualLogSource CustomLogger;
@@ -26,16 +27,19 @@ namespace MysteryDice
         public static GameObject NetworkerPrefab, JumpscareCanvasPrefab, JumpscareOBJ, PathfinderPrefab;
         public static Jumpscare JumpscareScript;
 
-        public static AudioClip ExplosionSFX,DetonateSFX, MineSFX, AwfulEffectSFX, BadEffectSFX, GoodEffectSFX, JumpscareSFX, AlarmSFX;
+        public static AudioClip ExplosionSFX,DetonateSFX, MineSFX, AwfulEffectSFX, BadEffectSFX, GoodEffectSFX, JumpscareSFX, AlarmSFX, PurrSFX;
         public static Sprite WarningBracken, WarningJester, WarningDeath, WarningLuck;
 
         public static Item DebugEmergencyDie, DebugGamblerDie, DebugChronosDie, DebugSacrificerDie, PathfinderSpawner;
         void Awake()
         {
-            NetcodeWeaver();
-            
             CustomLogger = BepInEx.Logging.Logger.CreateLogSource(modGUID);
 
+            ModConfig();
+            DieBehaviour.Config();
+            
+            NetcodeWeaver();
+           
             LoadedAssets = AssetBundle.LoadFromFile(Path.Combine(Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location), "mysterydice"));
 
             ExplosionSFX = LoadedAssets.LoadAsset<AudioClip>("MineDetonate");
@@ -44,6 +48,7 @@ namespace MysteryDice
             BadEffectSFX = LoadedAssets.LoadAsset<AudioClip>("Bad1");
             GoodEffectSFX = LoadedAssets.LoadAsset<AudioClip>("Good2");
             JumpscareSFX = LoadedAssets.LoadAsset<AudioClip>("glitch");
+            PurrSFX = LoadedAssets.LoadAsset<AudioClip>("purr");
             AlarmSFX = LoadedAssets.LoadAsset<AudioClip>("alarmcurse");
 
             WarningBracken = LoadedAssets.LoadAsset<Sprite>("bracken");
@@ -105,8 +110,6 @@ namespace MysteryDice
 
             PathfinderSpawner = LoadedAssets.LoadAsset<Item>("Pathblob");
             
-
-
             Pathfinder.BlobspawnerBehaviour scriptBlobspawner = PathfinderSpawner.spawnPrefab.AddComponent<Pathfinder.BlobspawnerBehaviour>();
             scriptBlobspawner.grabbable = true;
             scriptBlobspawner.grabbableToEnemies = true;
@@ -128,14 +131,15 @@ namespace MysteryDice
             LethalLib.Modules.NetworkPrefabs.RegisterNetworkPrefab(emergencyDie.spawnPrefab);
             LethalLib.Modules.NetworkPrefabs.RegisterNetworkPrefab(chronosDie.spawnPrefab);
             LethalLib.Modules.NetworkPrefabs.RegisterNetworkPrefab(sacrificerDie.spawnPrefab);
+            LethalLib.Modules.NetworkPrefabs.RegisterNetworkPrefab(PathfinderSpawner.spawnPrefab);
             LethalLib.Modules.NetworkPrefabs.RegisterNetworkPrefab(PathfinderPrefab);
 
             Utilities.FixMixerGroups(mysteryDie.spawnPrefab); //fixes audio
             Utilities.FixMixerGroups(emergencyDie.spawnPrefab);
             Utilities.FixMixerGroups(chronosDie.spawnPrefab);
             Utilities.FixMixerGroups(sacrificerDie.spawnPrefab);
-
             Utilities.FixMixerGroups(mysteryDie.spawnPrefab);
+
             Items.RegisterScrap(mysteryDie, 13, Levels.LevelTypes.ExperimentationLevel | Levels.LevelTypes.AssuranceLevel);
             Items.RegisterScrap(mysteryDie, 15, Levels.LevelTypes.VowLevel);
             Items.RegisterScrap(mysteryDie, 17, Levels.LevelTypes.OffenseLevel | Levels.LevelTypes.MarchLevel);
@@ -175,6 +179,19 @@ namespace MysteryDice
                     }
                 }
             }
+        }
+
+        public static void ModConfig()
+        {
+            ConfigFile configFile = new ConfigFile(Path.Combine(Paths.ConfigPath, "Emergency Dice.cfg"), true);
+
+            ConfigEntry<bool> cfg = configFile.Bind<bool>(
+                "Clientside",
+                "Pussy mode",
+                true,
+                "Changes the jumpscare effect to a less scary one");
+
+            JumpscareGlitch.PussyMode = cfg.Value;
         }
     }
 }

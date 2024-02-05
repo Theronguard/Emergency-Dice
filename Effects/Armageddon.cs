@@ -10,9 +10,10 @@ namespace MysteryDice.Effects
 {
     internal class Armageddon : IEffect
     {
+        public string Name => "Armageddon";
         public EffectType Outcome => EffectType.Awful;
         public bool ShowDefaultTooltip => true;
-        public string Tooltip => "Dont go outside!";
+        public string Tooltip => "Armageddon outside!";
 
         public static bool IsEnabled = false;
         public static float TimeToBoom = 0f;

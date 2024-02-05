@@ -20,6 +20,7 @@ namespace MysteryDice.Effects
     {
         EffectType Outcome { get; }
         bool ShowDefaultTooltip { get; }
+        string Name { get; }
         string Tooltip { get; }
         void Use();
     }

@@ -1,7 +1,10 @@
-﻿using MysteryDice.Effects;
+﻿using BepInEx.Configuration;
+using BepInEx;
+using MysteryDice.Effects;
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -12,43 +15,17 @@ namespace MysteryDice.Dice
 {
     public abstract class DieBehaviour : PhysicsProp
     {
+        public static List<IEffect> AllEffects = new List<IEffect>();
+        public static List<IEffect> AllowedEffects = new List<IEffect>();
+
         protected GameObject DiceModel;
         public List<IEffect> Effects = new List<IEffect>();
         public Dictionary<int, EffectType[]> RollToEffect = new Dictionary<int, EffectType[]>();
 
         public virtual void SetupDiceEffects()
         {
-            Effects.Add(new InfiniteStaminaAll());
-            Effects.Add(new InfiniteStamina());
-            Effects.Add(new Pathfinder());
-            Effects.Add(new Shotgun());
-            Effects.Add(new ShipTurret());
-            Effects.Add(new TurretHell());
-            Effects.Add(new SilentMine());
-            Effects.Add(new ZombieToShip());
-            Effects.Add(new InvertDoorLock());
-            Effects.Add(new AlarmCurse());
-            Effects.Add(new JumpscareGlitch());
-            Effects.Add(new Armageddon());
-            Effects.Add(new Beepocalypse());
-            Effects.Add(new RebeliousCoilHeads());
-            Effects.Add(new TurnOffLights());
-            Effects.Add(new HealAndRestore());
-            Effects.Add(new ScrapJackpot());
-            Effects.Add(new Swap());
-            Effects.Add(new ModifyPitch());
-            Effects.Add(new MineOverflow());
-            Effects.Add(new MineOverflowOutside());
-            Effects.Add(new InstaJester());
-            Effects.Add(new FakeFireExits());
-            Effects.Add(new FireExitBlock());
-            Effects.Add(new ReturnToShip());
-            Effects.Add(new TeleportInside());
-            Effects.Add(new BugPlague());
-            Effects.Add(new ZombieApocalypse());
-            Effects.Add(new Revive());
-            Effects.Add(new Detonate());
-            //Effects.Add(new OutsideBracken()); to fix
+            foreach (IEffect effect in AllowedEffects)
+                Effects.Add(effect);
         }
         public virtual void SetupRollToEffectMapping()
         {
@@ -231,6 +208,53 @@ namespace MysteryDice.Dice
                 case EffectType.Mixed:
                     HUDManager.Instance.DisplayTip($"Rolled {diceRoll}", "Debatable");
                     break;
+            }
+        }
+
+        public static void Config()
+        {
+            ConfigFile configFile = new ConfigFile(Path.Combine(Paths.ConfigPath, "Emergency Dice.cfg"), true);
+
+            AllEffects.Add(new InfiniteStaminaAll());
+            AllEffects.Add(new InfiniteStamina());
+            AllEffects.Add(new Pathfinder());
+            AllEffects.Add(new Shotgun());
+            AllEffects.Add(new ShipTurret());
+            AllEffects.Add(new TurretHell());
+            AllEffects.Add(new SilentMine());
+            AllEffects.Add(new ZombieToShip());
+            AllEffects.Add(new InvertDoorLock());
+            AllEffects.Add(new AlarmCurse());
+            AllEffects.Add(new JumpscareGlitch());
+            AllEffects.Add(new Armageddon());
+            AllEffects.Add(new Beepocalypse());
+            AllEffects.Add(new RebeliousCoilHeads());
+            AllEffects.Add(new TurnOffLights());
+            AllEffects.Add(new HealAndRestore());
+            AllEffects.Add(new ScrapJackpot());
+            AllEffects.Add(new Swap());
+            AllEffects.Add(new ModifyPitch());
+            AllEffects.Add(new MineOverflow());
+            AllEffects.Add(new MineOverflowOutside());
+            AllEffects.Add(new InstaJester());
+            AllEffects.Add(new FakeFireExits());
+            AllEffects.Add(new FireExitBlock());
+            AllEffects.Add(new ReturnToShip());
+            AllEffects.Add(new TeleportInside());
+            AllEffects.Add(new BugPlague());
+            AllEffects.Add(new ZombieApocalypse());
+            AllEffects.Add(new Revive());
+            AllEffects.Add(new Detonate());
+
+            foreach(var effect in AllEffects)
+            {
+                ConfigEntry<bool> cfg = configFile.Bind<bool>("Allowed Effects",
+                    effect.Name,
+                    true,
+                    effect.Tooltip);
+
+                if (cfg.Value)
+                    AllowedEffects.Add(effect);
             }
         }
     }

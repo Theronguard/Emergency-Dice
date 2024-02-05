@@ -8,6 +8,7 @@ namespace MysteryDice.Effects
 {
     internal class Shotgun : IEffect
     {
+        public string Name => "Shotgun";
         public EffectType Outcome => EffectType.Great;
         public bool ShowDefaultTooltip => false;
         public string Tooltip => "Spawning a shotgun!";

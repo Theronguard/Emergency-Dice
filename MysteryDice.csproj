@@ -119,9 +119,9 @@
     <Compile Include="Libraries\WeightedList.cs" />
     <Compile Include="MysteryDice.cs" />
     <Compile Include="Networker.cs" />
+    <Compile Include="Patches\ChatPatch.cs" />
     <Compile Include="Patches\TurretPatch.cs" />
     <Compile Include="Patches\FireExitPatch.cs" />
-    <Compile Include="Patches\ChatPatch.cs" />
     <Compile Include="Patches\PlayerControllerBPatch.cs" />
     <Compile Include="Patches\GameNetworkManagerPatch.cs" />
     <Compile Include="Patches\BrackenPatch.cs" />

@@ -4,6 +4,7 @@ namespace MysteryDice.Effects
 {
     internal class Wormageddon : IEffect
     {
+        public string Name => "Wormageddon";
         public EffectType Outcome => EffectType.Awful;
         public bool ShowDefaultTooltip => true;
         public string Tooltip => "Be ware of worms";

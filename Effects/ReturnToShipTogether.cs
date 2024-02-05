@@ -10,6 +10,7 @@ namespace MysteryDice.Effects
 {
     internal class ReturnToShipTogether : IEffect
     {
+        public string Name => "Return to ship together";
         public EffectType Outcome => EffectType.Great;
         public bool ShowDefaultTooltip => false;
         public string Tooltip => "Returning to ship with your nearest crewmates!";

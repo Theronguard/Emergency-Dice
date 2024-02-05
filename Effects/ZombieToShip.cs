@@ -11,9 +11,10 @@ namespace MysteryDice.Effects
 {
     internal class ZombieToShip : IEffect
     {
+        public string Name => "Zombie return swap";
         public EffectType Outcome => EffectType.Awful;
         public bool ShowDefaultTooltip => true;
-        public string Tooltip => "Returning to ship with items!";
+        public string Tooltip => "Returns you to the ship and places a zombie in your original position";
         public void Use()
         {
             Networker.Instance.ZombieToShipServerRPC(StartOfRound.Instance.localPlayerController.playerClientId);

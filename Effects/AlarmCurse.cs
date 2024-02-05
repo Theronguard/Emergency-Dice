@@ -10,9 +10,10 @@ namespace MysteryDice.Effects
 {
     internal class AlarmCurse : IEffect
     {
+        public string Name => "Alarm";
         public EffectType Outcome => EffectType.Bad;
         public bool ShowDefaultTooltip => true;
-        public string Tooltip => "Alarm!";
+        public string Tooltip => "You emit annoying sounds";
 
         public static bool IsCursed = false;
         public static float CursedTimer = 0f;

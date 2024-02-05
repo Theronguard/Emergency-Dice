@@ -10,6 +10,7 @@ namespace MysteryDice.Effects
 {
     internal class Swap : IEffect
     {
+        public string Name => "Swap";
         public EffectType Outcome => EffectType.Mixed;
         public bool ShowDefaultTooltip => false;
         public string Tooltip => "Swapping two players!";

@@ -8,6 +8,7 @@ namespace MysteryDice.Effects
 {
     internal class ModifyPitch : IEffect
     {
+        public string Name => "Speech jammer";
         const float PitchSwitchTime = 0.05f;
         private static float PitchSwitchTimer = 0f;
         public static bool FluctuatePitch = false;

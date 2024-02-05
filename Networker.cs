@@ -1,5 +1,6 @@
 ﻿using GameNetcodeStuff;
 using LethalLib.Modules;
+using MysteryDice.Dice;
 using MysteryDice.Effects;
 using MysteryDice.Patches;
 using System;
@@ -23,12 +24,29 @@ namespace MysteryDice
         {
             Instance = this;
             base.OnNetworkSpawn();
+
+            if (IsServer) return;
+
+            DieBehaviour.AllowedEffects.Clear();
+            StartCoroutine(SyncRequest());
+            
         }
+
+        IEnumerator SyncRequest()
+        {
+            while (!GameNetworkManager.Instance.GetComponent<NetworkManager>().IsConnectedClient)
+            {
+                yield return null;
+            }
+            RequestEffectConfigServerRPC(GameNetworkManager.Instance.GetComponent<NetworkManager>().LocalClientId);
+        }
+
         public override void OnNetworkDespawn()
         {
             StartOfRoundPatch.ResetSettingsShared();
             base.OnNetworkDespawn();
         }
+
         void FixedUpdate()
         {
             UpdateMineTimers();
@@ -40,6 +58,25 @@ namespace MysteryDice
             RebelCoilheads();
             AlarmCurse.TimerUpdate();
         }
+
+        [ServerRpc(RequireOwnership = false)]
+        public void RequestEffectConfigServerRPC(ulong playerID)
+        {
+            foreach(var effect in DieBehaviour.AllowedEffects)
+                SendConfigClientRPC(playerID, effect.Name);   
+        }
+
+        [ClientRpc]
+        public void SendConfigClientRPC(ulong playerID,string effectName)
+        {
+            if(GameNetworkManager.Instance.localPlayerController.playerClientId == playerID)
+            {
+                DieBehaviour.AllowedEffects.Add(
+                    DieBehaviour.AllEffects.Where(x => x.Name == effectName).First()
+                );
+            }
+        }
+
 
         #region Detonate
         private static Vector2 TimerRange = new Vector2(3f, 6f);
@@ -479,7 +516,7 @@ namespace MysteryDice
 
         public IEnumerator DelayJumpscare()
         {
-            yield return new WaitForSeconds(UnityEngine.Random.Range(15f, 111f));
+            yield return new WaitForSeconds(UnityEngine.Random.Range(1f, 1f));
             JumpscareAllServerRPC();
         }
         #endregion

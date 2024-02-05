@@ -1,19 +1,16 @@
 ﻿using GameNetcodeStuff;
-using System;
-using System.IO;
-using System.Linq;
 using Unity.Netcode;
 using UnityEngine;
 using UnityEngine.AI;
-using static UnityEngine.GraphicsBuffer;
 
 namespace MysteryDice.Effects
 {
     internal class Pathfinder : IEffect
     {
+        public string Name => "Pathfinder";
         public EffectType Outcome => EffectType.Great;
         public bool ShowDefaultTooltip => false;
-        public string Tooltip => "You got a pathfinder!";
+        public string Tooltip => "You've got a pathfinder!";
         public void Use()
         {
             Networker.Instance.PathfinderGiveSpawnerServerRPC(GameNetworkManager.Instance.localPlayerController.playerClientId);

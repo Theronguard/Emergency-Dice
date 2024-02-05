@@ -7,9 +7,10 @@ namespace MysteryDice.Effects
 {
     internal class BugPlague : IEffect
     {
+        public string Name => "Bug Plague";
         public EffectType Outcome => EffectType.Bad;
         public bool ShowDefaultTooltip => true;
-        public string Tooltip => "Spawned a lot of bugs!";
+        public string Tooltip => "A lot of bugs spawned inside!";
 
         public void Use()
         {

@@ -13,10 +13,12 @@ namespace MysteryDice.Effects
 {
     internal class ShipTurret : IEffect
     {
+        public string Name => "Ship Turret";
+
         public static int MaxTurretsToSpawn = 2;
         public EffectType Outcome => EffectType.Bad;
         public bool ShowDefaultTooltip => true;
-        public string Tooltip => "Turret near the ship!";
+        public string Tooltip => "Turret spawned near the ship!";
 
         public void Use()
         {

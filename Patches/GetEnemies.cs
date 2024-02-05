@@ -48,7 +48,6 @@ namespace MysteryDice.Patches
 
                 foreach (SpawnableEnemyWithRarity enemy in level.OutsideEnemies)
                 {
-                   
                     if (enemy.enemyType.enemyName == "Earth Leviathan")
                     {
                         Sandworm = enemy;
@@ -59,13 +58,9 @@ namespace MysteryDice.Patches
                 {
                     if (item.prefabToSpawn.name == "Landmine" && SpawnableLandmine == null)
                         SpawnableLandmine = item;
-                        break;
 
                     if (item.prefabToSpawn.name == "TurretContainer" && SpawnableTurret == null)
-                    {
                         SpawnableTurret = item;
-                        break;
-                    }
                 }
             }
         }
