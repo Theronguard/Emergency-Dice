@@ -29,16 +29,19 @@ namespace MysteryDice
 
             DieBehaviour.AllowedEffects.Clear();
             StartCoroutine(SyncRequest());
-            
         }
 
-        IEnumerator SyncRequest()
+        public IEnumerator SyncRequest()
         {
             while (!GameNetworkManager.Instance.GetComponent<NetworkManager>().IsConnectedClient)
             {
-                yield return null;
+                yield return new WaitForSeconds(0.5f);
             }
-            RequestEffectConfigServerRPC(GameNetworkManager.Instance.GetComponent<NetworkManager>().LocalClientId);
+            while (GameNetworkManager.Instance.localPlayerController == null)
+            {
+                yield return new WaitForSeconds(0.5f);
+            }
+            RequestEffectConfigServerRPC(GameNetworkManager.Instance.localPlayerController.playerClientId);
         }
 
         public override void OnNetworkDespawn()
@@ -69,6 +72,7 @@ namespace MysteryDice
         [ClientRpc]
         public void SendConfigClientRPC(ulong playerID,string effectName)
         {
+            if (IsServer) return;
             if(GameNetworkManager.Instance.localPlayerController.playerClientId == playerID)
             {
                 DieBehaviour.AllowedEffects.Add(

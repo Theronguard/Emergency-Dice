@@ -80,31 +80,31 @@ Guarantees a return to the ship, and a bad effect.
 
 * Spawns a jester in a popped state, and pops all already existing jesters.
 * Creates a lot of fake fire exits
-* Armageddon
-* ?
-* ?
-* ?
-* ?
-* ?
-* ?
-* ?
-* ?
-* ?
-* ?
-* ?
-* ?
-* ?
-* ?
-* ?
-* ?
-* ?
-* ?
-* ?
-* ?
-* ?
-* ?
-* I stopped counting them
+* Spawns an armageddon outside
+* Spawns a lot of bee hives outside
+* Spawns a lot of bugs inside
+* Detonates a random player
+* Blocks all fire exits
+* Closes all open doors and locks them
+* Jumpscares you (can be changed in the settings to be mild)
+* Spawns a lot of mines inside
+* Spawns a lot of mines outside
+* Changes your speech, and makes it harder to communicate
+* Causes coilheads to sometimes ignore your stare, which allows them to move while being watched.
+* Creates turrets near the ship
+* Teleports you inside
+* Turns off all lights permanently
+* Creates a lot of turrets
+* Spawns a lot of worms outside
+* Spawns a lot of zombies inside
+* Teleports you to the ship, but leaves a zombie in your place
+* Makes you emit an annoying sound periodically
 * More to come
+
+### Special thanks
+* Thanks Simmmmms for contributing some code and finding bugs!
+* Thank you Kayden21 for reporting bugs
+
 
 
 ### All players need this mod

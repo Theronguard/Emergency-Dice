@@ -19,7 +19,7 @@ namespace MysteryDice.Patches
         [HarmonyPatch("Start")]
         public static void AddPrefab(ref GameNetworkManager __instance)
         {
-            __instance.GetComponent<NetworkManager>().AddNetworkPrefab(MysteryDice.NetworkerPrefab);
+            __instance.GetComponent<NetworkManager>().AddNetworkPrefab(MysteryDice.NetworkerPrefab);   
         }
     }
 }
