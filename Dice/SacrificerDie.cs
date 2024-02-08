@@ -32,12 +32,14 @@ namespace MysteryDice.Dice
 
             PlaySoundBasedOnEffect(randomEffect.Outcome);
             randomEffect.Use();
+            Networker.Instance.LogEffectsToOwnerServerRPC(PlayerUser.playerUsername, randomEffect.Name);
 
             if (diceRoll == 1)
             {
                 HUDManager.Instance.DisplayTip($"Rolled 1...", "Run");
                 randomEffect = GetRandomEffect(diceRoll, Effects);
                 randomEffect.Use();
+                Networker.Instance.LogEffectsToOwnerServerRPC(PlayerUser.playerUsername, randomEffect.Name);
             }
             else
                 HUDManager.Instance.DisplayTip($"Rolled {diceRoll}", EffectText(randomEffect.Outcome));

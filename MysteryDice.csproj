@@ -120,6 +120,7 @@
     <Compile Include="MysteryDice.cs" />
     <Compile Include="Networker.cs" />
     <Compile Include="Patches\ChatPatch.cs" />
+    <Compile Include="Patches\TerminalPatch.cs" />
     <Compile Include="Patches\TurretPatch.cs" />
     <Compile Include="Patches\FireExitPatch.cs" />
     <Compile Include="Patches\PlayerControllerBPatch.cs" />

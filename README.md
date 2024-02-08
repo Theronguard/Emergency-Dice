@@ -101,6 +101,47 @@ Guarantees a return to the ship, and a bad effect.
 * Makes you emit an annoying sound periodically
 * More to come
 
+
+### Config
+Be sure to check out the plugin's config file.
+It is called Emergency Dice.cfg and it should
+be generated when you run the game with the mod for the first time.
+
+You can modify which effects you want or not and more.
+
+### Emergency die shop alias
+Some mods (like Lethal Things mod) might use conflicting item names in the shop.
+To solve this I added few aliases for the emergency die in the shop.
+
+Try these aliases in the shop:
+* emergencydie
+* dice
+* die
+* edie
+
+### Chat commands
+I included some chat commands in the mod, mainly for myself to ease debugging.
+If you want to use them you have to set
+
+"Allow chat commands = true"
+
+in the config.
+
+To spawn dice use:
+* ~edice dice num
+
+where num is an id of the die.
+ID's start from 1.
+
+If you want to force an effect, use
+* ~edice effect effectName
+
+You can find effectNames on github in the source code.
+Look for the folder named Effects, and inside you will find all of them.
+Pick the one you want, and get the name from the line
+
+public string Name => ""
+
 ### Special thanks
 * Thanks Simmmmms for contributing some code and finding bugs!
 * Thank you Kayden21 for reporting bugs

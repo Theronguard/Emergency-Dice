@@ -10,6 +10,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Unity.Netcode;
 using UnityEngine;
+using GameNetcodeStuff;
 
 namespace MysteryDice.Dice
 {
@@ -18,9 +19,13 @@ namespace MysteryDice.Dice
         public static List<IEffect> AllEffects = new List<IEffect>();
         public static List<IEffect> AllowedEffects = new List<IEffect>();
 
+        public static bool LogEffectsToConsole = false;
+
         protected GameObject DiceModel;
         public List<IEffect> Effects = new List<IEffect>();
         public Dictionary<int, EffectType[]> RollToEffect = new Dictionary<int, EffectType[]>();
+
+        public PlayerControllerB PlayerUser = null;
 
         public virtual void SetupDiceEffects()
         {
@@ -48,6 +53,7 @@ namespace MysteryDice.Dice
 
         public override void PocketItem()
         {
+           
             DiceModel.SetActive(false);
             base.PocketItem();
 
@@ -56,6 +62,7 @@ namespace MysteryDice.Dice
         {
             DiceModel.SetActive(true);
             base.EquipItem();
+            PlayerUser = this.playerHeldBy;
         }
 
         public override void OnHitGround()
@@ -71,6 +78,8 @@ namespace MysteryDice.Dice
             {
                 if (StartOfRound.Instance == null) return;
                 if (StartOfRound.Instance.inShipPhase || !StartOfRound.Instance.shipHasLanded) return;
+
+                PlayerUser = playerHeldBy;
 
                 ulong dropperID = playerHeldBy.playerClientId;
                 GameNetworkManager.Instance.localPlayerController.DiscardHeldObject(true, null, GetItemFloorPosition(DiceModel.transform.parent.position), false);
@@ -154,6 +163,9 @@ namespace MysteryDice.Dice
 
             PlaySoundBasedOnEffect(randomEffect.Outcome);
             randomEffect.Use();
+
+            Networker.Instance.LogEffectsToOwnerServerRPC(PlayerUser.playerUsername, randomEffect.Name);
+
 
             if (randomEffect.ShowDefaultTooltip)
                 ShowDefaultTooltip(randomEffect.Outcome, diceRoll);
@@ -248,7 +260,7 @@ namespace MysteryDice.Dice
 
             foreach(var effect in AllEffects)
             {
-                ConfigEntry<bool> cfg = configFile.Bind<bool>("Allowed Effects",
+                ConfigEntry<bool> cfg = MysteryDice.BepInExConfig.Bind<bool>("Allowed Effects",
                     effect.Name,
                     true,
                     effect.Tooltip);

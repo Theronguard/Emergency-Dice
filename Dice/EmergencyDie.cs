@@ -51,6 +51,7 @@ namespace MysteryDice.Dice
             if (diceRoll == 6) randomEffect = new ReturnToShipTogether();
 
             randomEffect.Use();
+            Networker.Instance.LogEffectsToOwnerServerRPC(PlayerUser.playerUsername, randomEffect.Name);
 
             if (randomEffect.ShowDefaultTooltip)
                 ShowDefaultTooltip(randomEffect.Outcome, diceRoll);

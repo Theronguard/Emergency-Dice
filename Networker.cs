@@ -62,6 +62,14 @@ namespace MysteryDice
             AlarmCurse.TimerUpdate();
         }
 
+
+        [ServerRpc(RequireOwnership = false)]
+        public void LogEffectsToOwnerServerRPC(string playerName, string effectName)
+        {
+            if(DieBehaviour.LogEffectsToConsole)
+                MysteryDice.CustomLogger.LogInfo($"[Debug] Player: {playerName} rolled {effectName}");
+        }
+
         [ServerRpc(RequireOwnership = false)]
         public void RequestEffectConfigServerRPC(ulong playerID)
         {

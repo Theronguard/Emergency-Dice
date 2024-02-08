@@ -50,6 +50,7 @@ namespace MysteryDice.Dice
 
             PlaySoundBasedOnEffect(randomEffect.Outcome);
             randomEffect.Use();
+            Networker.Instance.LogEffectsToOwnerServerRPC(PlayerUser.playerUsername, randomEffect.Name);
 
             if (isOutside)
             {

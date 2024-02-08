@@ -10,6 +10,7 @@ using MysteryDice.Visual;
 using MysteryDice.Dice;
 using System;
 using BepInEx.Configuration;
+using MysteryDice.Patches;
 
 namespace MysteryDice
 {
@@ -18,7 +19,7 @@ namespace MysteryDice
     {
         private const string modGUID = "Theronguard.EmergencyDice";
         private const string modName = "Emergency Dice";
-        private const string modVersion = "1.1.9";
+        private const string modVersion = "1.1.12";
 
         private readonly Harmony harmony = new Harmony(modGUID);
         public static ManualLogSource CustomLogger;
@@ -31,9 +32,13 @@ namespace MysteryDice
         public static Sprite WarningBracken, WarningJester, WarningDeath, WarningLuck;
 
         public static Item DebugEmergencyDie, DebugGamblerDie, DebugChronosDie, DebugSacrificerDie, PathfinderSpawner;
+
+        public static ConfigFile BepInExConfig = null;
         void Awake()
         {
             CustomLogger = BepInEx.Logging.Logger.CreateLogSource(modGUID);
+
+            BepInExConfig = new ConfigFile(Path.Combine(Paths.ConfigPath, "Emergency Dice.cfg"), true);
 
             ModConfig();
             DieBehaviour.Config();
@@ -183,15 +188,32 @@ namespace MysteryDice
 
         public static void ModConfig()
         {
-            ConfigFile configFile = new ConfigFile(Path.Combine(Paths.ConfigPath, "Emergency Dice.cfg"), true);
-
-            ConfigEntry<bool> cfg = configFile.Bind<bool>(
+            ConfigEntry<bool> pussyMode = BepInExConfig.Bind<bool>(
                 "Clientside",
                 "Pussy mode",
                 true,
                 "Changes the jumpscare effect to a less scary one");
 
-            JumpscareGlitch.PussyMode = cfg.Value;
+            JumpscareGlitch.PussyMode = pussyMode.Value;
+
+
+            ConfigEntry<bool> debugDice = BepInExConfig.Bind<bool>(
+                "Admin",
+                "Show effects in the console",
+                false,
+                "Shows what effect has been rolled by the dice in the console. For debug purposes.");
+
+            DieBehaviour.LogEffectsToConsole = debugDice.Value;
+
+
+            ConfigEntry<bool> allowChatCommands = BepInExConfig.Bind<bool>(
+                "Admin",
+                "Allow chat commands",
+                false,
+                "Enables chat commands for the admin. Mainly for debugging.");
+
+            ChatPatch.AllowChatDebug = allowChatCommands.Value;
+            
         }
     }
 }
