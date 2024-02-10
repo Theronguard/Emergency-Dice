@@ -79,6 +79,10 @@ namespace MysteryDice.Patches
             AlarmCurse.IsCursed = false;
             TurretPatch.FastCharging = false;
             PlayerControllerBPatch.HasInfiniteStamina = false;
+            Networker.Instance.StopAllCoroutines();
+
+            if (Networker.Instance.IsServer)
+                Networker.Instance.SyncRateClientRPC(StartOfRound.Instance.companyBuyingRate);
         }
 
     }

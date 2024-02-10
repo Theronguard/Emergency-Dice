@@ -74,6 +74,8 @@ Guarantees a return to the ship, and a bad effect.
 * Revives every dead player
 * Gives you infinite stamina
 * Gives everyone infinite stamina
+* Increases company's item rate for the current quota
+* Makes all the living enemies explode and die
 * More to come
 
 ### Negative
@@ -99,6 +101,7 @@ Guarantees a return to the ship, and a bad effect.
 * Spawns a lot of zombies inside
 * Teleports you to the ship, but leaves a zombie in your place
 * Makes you emit an annoying sound periodically
+* Makes the ship door malfunction
 * More to come
 
 
@@ -107,7 +110,10 @@ Be sure to check out the plugin's config file.
 It is called Emergency Dice.cfg and it should
 be generated when you run the game with the mod for the first time.
 
-You can modify which effects you want or not and more.
+You can modify which effects you want or not, or change some other settings.
+
+The [Allowed Effects] tab in the config syncs with all the clients,
+meaning that only server needs to disable/enable effects.
 
 ### Emergency die shop alias
 Some mods (like Lethal Things mod) might use conflicting item names in the shop.

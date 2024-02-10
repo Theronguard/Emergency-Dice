@@ -50,6 +50,8 @@ namespace MysteryDice.Effects
                     }
                     if (mainEntrance == null) yield break;
 
+                    
+
                     bracken.allAINodes = GameObject.FindGameObjectsWithTag("OutsideAINode");
                     bracken.isOutside = true;
                     bracken.ChangeOwnershipOfEnemy(GameNetworkManager.Instance.localPlayerController.actualClientId);

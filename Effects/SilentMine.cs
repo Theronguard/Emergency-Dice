@@ -24,9 +24,10 @@ namespace MysteryDice.Effects
             Networker.Instance.SilenceMinesServerRPC();
         }
 
-        public static IEnumerator SilenceAllMines()
+        public static IEnumerator SilenceAllMines(bool isServer)
         {
-            MineOverflow.SpawnMoreMines(10);
+            if(isServer)
+                MineOverflow.SpawnMoreMines(10);
 
             yield return new WaitForSeconds(5); //lazy fix to allow all clients to sync
 

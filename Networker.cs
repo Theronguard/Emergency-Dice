@@ -528,7 +528,7 @@ namespace MysteryDice
 
         public IEnumerator DelayJumpscare()
         {
-            yield return new WaitForSeconds(UnityEngine.Random.Range(1f, 1f));
+            yield return new WaitForSeconds(UnityEngine.Random.Range(10f, 60f));
             JumpscareAllServerRPC();
         }
         #endregion
@@ -602,7 +602,7 @@ namespace MysteryDice
         [ServerRpc(RequireOwnership = false)]
         public void SilenceMinesServerRPC()
         {
-            StartCoroutine(SilentMine.SilenceAllMines());
+            StartCoroutine(SilentMine.SilenceAllMines(IsServer));
             SilenceMinesClientRPC();
         }
 
@@ -610,7 +610,7 @@ namespace MysteryDice
         public void SilenceMinesClientRPC()
         {
             if(!IsServer)
-                StartCoroutine(SilentMine.SilenceAllMines());
+                StartCoroutine(SilentMine.SilenceAllMines(IsServer));
         }
         #endregion
 
@@ -643,9 +643,9 @@ namespace MysteryDice
         #region Shotgun
 
         [ServerRpc(RequireOwnership = false)]
-        public void ShotgunServerRPC()
+        public void ShotgunServerRPC(ulong playerID)
         {
-            Shotgun.SpawnShotgun();
+            Shotgun.SpawnShotgun(playerID);
         }
         #endregion
 
@@ -677,6 +677,68 @@ namespace MysteryDice
         {
             PlayerControllerBPatch.HasInfiniteStamina = true;
         }
+        #endregion
+
+        #region Purge
+
+        [ServerRpc(RequireOwnership =false)]
+        public void PurgeServerRPC()
+        {
+            PurgeClientRPC();
+        }
+        [ClientRpc]
+        public void PurgeClientRPC()
+        {
+            Purge.PurgeAllEnemies();
+        }
+        #endregion
+
+        #region Door Malfunction
+        Coroutine DoorMalfunctioning = null;
+
+        [ServerRpc(RequireOwnership = false)]
+        public void StartMalfunctioningServerRPC()
+        {
+            if (DoorMalfunctioning != null)
+                StopCoroutine(DoorMalfunctioning);
+
+            DoorMalfunctioning = StartCoroutine(DoorBrokenLoop());
+        }
+
+        IEnumerator DoorBrokenLoop()
+        {
+            while (true)
+            {
+                DoorMalfunctionClientRPC(true);
+                yield return new WaitForSeconds(UnityEngine.Random.Range(1f, 7f));
+                DoorMalfunctionClientRPC(false);
+                yield return new WaitForSeconds(UnityEngine.Random.Range(0.5f, 4f));
+            }
+        }
+
+        [ClientRpc]
+        public void DoorMalfunctionClientRPC(bool closed)
+        {
+            DoorMalfunction.SetHangarDoorsState(closed);
+        }
+        #endregion
+
+        #region Increased Rate
+
+        [ServerRpc(RequireOwnership = false)]
+        public void IncreaseRateServerRPC()
+        {
+            TimeOfDayPatch.AdditionalBuyingRate += UnityEngine.Random.Range(0.2f, 0.6f);
+            StartOfRound.Instance.companyBuyingRate += TimeOfDayPatch.AdditionalBuyingRate;
+            SyncRateClientRPC(StartOfRound.Instance.companyBuyingRate);
+        }
+
+        [ClientRpc]
+        public void SyncRateClientRPC(float companyRate)
+        {
+            StartOfRound.Instance.companyBuyingRate = companyRate;
+        }
+
         #endregion
     }
 }

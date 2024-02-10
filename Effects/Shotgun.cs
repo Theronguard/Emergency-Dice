@@ -14,17 +14,17 @@ namespace MysteryDice.Effects
         public string Tooltip => "Spawning a shotgun!";
         public void Use()
         {
-            Networker.Instance.ShotgunServerRPC();
+            Networker.Instance.ShotgunServerRPC(GameNetworkManager.Instance.localPlayerController.playerClientId);
         }
 
-        public static void SpawnShotgun()
+        public static void SpawnShotgun(ulong playerID)
         {
             List<Item> items = UnityEngine.Resources.FindObjectsOfTypeAll<Item>().ToList();
             Item shotgun = items.FirstOrDefault(item => item.name.Equals("Shotgun"));
             Item ammo = items.FirstOrDefault(item => item.name.Equals("GunAmmo"));
 
             GameObject obj = UnityEngine.Object.Instantiate(shotgun.spawnPrefab,
-               GameNetworkManager.Instance.localPlayerController.transform.position,
+               Misc.GetPlayerByUserID(playerID).transform.position,
                Quaternion.identity,
                RoundManager.Instance.playersManager.propsContainer);
 

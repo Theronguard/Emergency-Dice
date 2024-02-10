@@ -89,8 +89,11 @@
     <Compile Include="Effects\Armageddon.cs" />
     <Compile Include="Effects\Pathfinder.cs" />
     <Compile Include="Effects\InfiniteStamina.cs" />
+    <Compile Include="Effects\Purge.cs" />
+    <Compile Include="Effects\IncreasedRate.cs" />
     <Compile Include="Effects\Shotgun.cs" />
     <Compile Include="Effects\ShipTurret.cs" />
+    <Compile Include="Effects\DoorMalfunction.cs" />
     <Compile Include="Effects\TurretHell.cs" />
     <Compile Include="Effects\SilentMine.cs" />
     <Compile Include="Effects\ZombieToShip.cs" />
@@ -120,6 +123,7 @@
     <Compile Include="MysteryDice.cs" />
     <Compile Include="Networker.cs" />
     <Compile Include="Patches\ChatPatch.cs" />
+    <Compile Include="Patches\TimeOfDayPatch.cs" />
     <Compile Include="Patches\TerminalPatch.cs" />
     <Compile Include="Patches\TurretPatch.cs" />
     <Compile Include="Patches\FireExitPatch.cs" />

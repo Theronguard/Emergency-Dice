@@ -227,6 +227,9 @@ namespace MysteryDice.Dice
         {
             ConfigFile configFile = new ConfigFile(Path.Combine(Paths.ConfigPath, "Emergency Dice.cfg"), true);
 
+            AllEffects.Add(new IncreasedRate());
+            AllEffects.Add(new DoorMalfunction());
+            AllEffects.Add(new Purge());
             AllEffects.Add(new InfiniteStaminaAll());
             AllEffects.Add(new InfiniteStamina());
             AllEffects.Add(new Pathfinder());

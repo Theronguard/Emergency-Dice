@@ -1,11 +1,7 @@
-﻿using GameNetcodeStuff;
-using HarmonyLib;
-using LethalLib;
-using LethalLib.Modules;
+﻿using HarmonyLib;
 using MysteryDice.Dice;
 using MysteryDice.Effects;
 using System;
-using System.Linq;
 using Unity.Netcode;
 using UnityEngine;
 
@@ -22,7 +18,7 @@ namespace MysteryDice.Patches
         {
             if (!AllowChatDebug) return;
 
-            string txt = __instance.chatTextField.text;
+            string txt = __instance.chatTextField.text.ToLower();
 
             if (txt == BaseCommand + "enemies")
             {
@@ -70,12 +66,16 @@ namespace MysteryDice.Patches
 
             foreach (IEffect effect in DieBehaviour.AllEffects)
             {
-                if (txt.Contains(BaseCommand + "effect " + effect.Name))
+                if (txt.Contains(BaseCommand + "effect " + effect.Name.ToLower()))
                 {
                     effect.Use();
                 }
             }
 
+            if(txt == "test")
+            {
+
+            }
         }
         
     }
