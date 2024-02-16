@@ -74,10 +74,12 @@ namespace MysteryDice.Patches
             FireExitPatch.AreFireExitsBlocked = false;
             Networker.CoilheadIgnoreStares = false;
             RebeliousCoilHeads.IsEnabled = false;
+            Arachnophobia.IsEnabled = false;
             ModifyPitch.ResetPitch();
             Armageddon.IsEnabled = false;
             AlarmCurse.IsCursed = false;
             TurretPatch.FastCharging = false;
+            BrightFlashlight.IsEnabled = false;
             PlayerControllerBPatch.HasInfiniteStamina = false;
             Networker.Instance.StopAllCoroutines();
 

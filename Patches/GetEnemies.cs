@@ -13,7 +13,7 @@ namespace MysteryDice.Patches
     internal class GetEnemies
     {
 
-        public static SpawnableEnemyWithRarity Masked, HoardingBug, Centipede, Jester, Bracken, Stomper, Coilhead, Beehive, Sandworm;
+        public static SpawnableEnemyWithRarity Masked, HoardingBug, Centipede, Jester, Bracken, Stomper, Coilhead, Beehive, Sandworm, Spider;
         public static SpawnableMapObject SpawnableLandmine, SpawnableTurret;
 
         [HarmonyPatch("Start")]
@@ -38,6 +38,8 @@ namespace MysteryDice.Patches
                         Stomper = enemy;
                     if (enemy.enemyType.enemyName == "Spring")
                         Coilhead = enemy;
+                    if (enemy.enemyType.enemyName == "Bunker Spider")
+                        Spider = enemy;
                 }
 
                 foreach (SpawnableEnemyWithRarity enemy in level.DaytimeEnemies)

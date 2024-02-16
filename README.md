@@ -76,6 +76,7 @@ Guarantees a return to the ship, and a bad effect.
 * Gives everyone infinite stamina
 * Increases company's item rate for the current quota
 * Makes all the living enemies explode and die
+* Makes all flashlights brighter
 * More to come
 
 ### Negative
@@ -102,6 +103,9 @@ Guarantees a return to the ship, and a bad effect.
 * Teleports you to the ship, but leaves a zombie in your place
 * Makes you emit an annoying sound periodically
 * Makes the ship door malfunction
+* Spawns spiders and makes them faster
+* Spawns landmines and makes them move
+* Spawns a coilhead outside
 * More to come
 
 

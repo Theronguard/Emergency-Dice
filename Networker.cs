@@ -1,4 +1,5 @@
-﻿using GameNetcodeStuff;
+﻿using BepInEx;
+using GameNetcodeStuff;
 using LethalLib.Modules;
 using MysteryDice.Dice;
 using MysteryDice.Effects;
@@ -12,6 +13,7 @@ using System.Threading;
 using System.Threading.Tasks;
 using Unity.Netcode;
 using UnityEngine;
+using static MysteryDice.Effects.MovingLandmines;
 
 namespace MysteryDice
 {
@@ -739,6 +741,120 @@ namespace MysteryDice
             StartOfRound.Instance.companyBuyingRate = companyRate;
         }
 
+        #endregion
+
+        #region Bright Flashlight
+
+        [ServerRpc(RequireOwnership = false)]
+        public void FlashbrightServerRPC()
+        {
+            FlashbrightClientRPC();
+        }
+
+        [ClientRpc]
+        public void FlashbrightClientRPC()
+        {
+            BrightFlashlight.IsEnabled = true;
+        }
+
+        #endregion
+
+        #region Arachnophobia
+
+        [ServerRpc(RequireOwnership = false)]
+        public void ArachnophobiaServerRPC()
+        {
+            ArachnophobiaClientRPC();
+            Arachnophobia.SpawnSpiders();
+        }
+
+        [ClientRpc]
+        public void ArachnophobiaClientRPC()
+        {
+            Arachnophobia.IsEnabled = true;
+        }
+
+        #endregion
+
+        #region Outside Coilhead
+        [ServerRpc(RequireOwnership = false)]
+        public void OutsideCoilheadServerRPC()
+        {
+            OutsideCoilhead.SpawnOutsideCoilhead();
+        }
+
+        public IEnumerator ServerDelayedCoilheadSetProperties(NetworkObjectReference netObj)
+        {
+            yield return new WaitForSeconds(5f);
+            SetCoilheadNavmeshClientRPC(netObj.NetworkObjectId);
+        }
+
+        [ClientRpc]
+        public void SetCoilheadNavmeshClientRPC(ulong netID)
+        {
+            foreach (var enemy in RoundManager.Instance.SpawnedEnemies)
+            {
+                if (!(enemy is SpringManAI)) continue;
+
+                if(enemy.NetworkObjectId == netID)
+                {
+                    OutsideCoilhead.SetNavmesh(enemy, true);
+                    enemy.EnableEnemyMesh(true, false);
+                }
+            }
+        }
+        #endregion
+
+        #region Moving mines
+        [ServerRpc(RequireOwnership = false)]
+        public void MovingMinesInitServerRPC()
+        {
+            MineOverflow.SpawnMoreMines(5);
+            AddMovingMinesClientRPC();
+        }
+        [ClientRpc]
+        public void AddMovingMinesClientRPC()
+        {
+            StartCoroutine(WaitForMineInit());
+        }
+
+        IEnumerator WaitForMineInit()
+        {
+            yield return new WaitForSeconds(5f);
+            foreach (Landmine mine in GameObject.FindObjectsOfType<Landmine>())
+            {
+                if (mine.transform.parent.gameObject.GetComponent<LandmineMovement>() == null)
+                {
+                    mine.transform.parent.gameObject.AddComponent<LandmineMovement>().LandmineScr = mine;
+                }
+            }
+        }
+
+        /// <summary>
+        /// this is inefficient, but stays for now
+        /// </summary>
+        /// <param name="mineID"></param>
+        /// <param name="speed"></param>
+        /// <param name="currentPosition"></param>
+        /// <param name="syncedPaths"></param>
+        /// <param name="blockedid"></param>
+        [ClientRpc]
+        public void SyncDataClientRPC(ulong mineID, float speed, Vector3 currentPosition, Vector3 targetPosition, int blockedid)
+        {
+            if (IsServer) return;
+
+            foreach(LandmineMovement mine in GameObject.FindObjectsOfType<LandmineMovement>())
+            {
+                if (mine.LandmineScr.NetworkObjectId != mineID) continue;
+
+                mine.transform.position = currentPosition;
+                mine.TargetPosition = targetPosition;
+                mine.MoveSpeed = speed;
+                mine.BlockedID = blockedid;
+                mine.CalculateNewPath();
+            }
+            
+        }
         #endregion
     }
 }

@@ -38,7 +38,7 @@ namespace MysteryDice.Effects
             {
                 PitchSwitchTimer = PitchSwitchTime;
                 for (int i = 0; i < StartOfRound.Instance.allPlayerScripts.Length; i++)
-                    if (StartOfRound.Instance.allPlayerScripts[i].isPlayerControlled && !StartOfRound.Instance.allPlayerScripts[i].isPlayerDead)
+                    if (StartOfRound.Instance.allPlayerScripts[i].isPlayerControlled)
                         SoundManager.Instance.SetPlayerPitch(
                             Misc.Map(Mathf.Sin((2f+ CumulativeRandomFreq) *Mathf.PI*Time.time + i)
                             ,-1f,1f,0.6f,1.4f), i);

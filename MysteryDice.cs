@@ -19,7 +19,7 @@ namespace MysteryDice
     {
         private const string modGUID = "Theronguard.EmergencyDice";
         private const string modName = "Emergency Dice";
-        private const string modVersion = "1.1.12";
+        private const string modVersion = "1.1.14";
 
         private readonly Harmony harmony = new Harmony(modGUID);
         public static ManualLogSource CustomLogger;
@@ -149,21 +149,21 @@ namespace MysteryDice
             Items.RegisterScrap(mysteryDie, 15, Levels.LevelTypes.VowLevel);
             Items.RegisterScrap(mysteryDie, 17, Levels.LevelTypes.OffenseLevel | Levels.LevelTypes.MarchLevel);
             Items.RegisterScrap(mysteryDie, 33, Levels.LevelTypes.RendLevel);
-            Items.RegisterScrap(mysteryDie, 43, Levels.LevelTypes.DineLevel);
+            Items.RegisterScrap(mysteryDie, 46, Levels.LevelTypes.DineLevel);
             Items.RegisterScrap(mysteryDie, 30, Levels.LevelTypes.TitanLevel);
 
             Items.RegisterScrap(chronosDie, 17, Levels.LevelTypes.ExperimentationLevel | Levels.LevelTypes.AssuranceLevel);
             Items.RegisterScrap(chronosDie, 17, Levels.LevelTypes.VowLevel);
             Items.RegisterScrap(chronosDie, 25, Levels.LevelTypes.OffenseLevel | Levels.LevelTypes.MarchLevel);
             Items.RegisterScrap(chronosDie, 22, Levels.LevelTypes.RendLevel);
-            Items.RegisterScrap(chronosDie, 20, Levels.LevelTypes.DineLevel);
+            Items.RegisterScrap(chronosDie, 41, Levels.LevelTypes.DineLevel);
             Items.RegisterScrap(chronosDie, 33, Levels.LevelTypes.TitanLevel);
 
             Items.RegisterScrap(sacrificerDie, 20, Levels.LevelTypes.ExperimentationLevel | Levels.LevelTypes.AssuranceLevel);
             Items.RegisterScrap(sacrificerDie, 20, Levels.LevelTypes.VowLevel);
             Items.RegisterScrap(sacrificerDie, 20, Levels.LevelTypes.OffenseLevel | Levels.LevelTypes.MarchLevel);
             Items.RegisterScrap(sacrificerDie, 35, Levels.LevelTypes.RendLevel);
-            Items.RegisterScrap(sacrificerDie, 20, Levels.LevelTypes.DineLevel);
+            Items.RegisterScrap(sacrificerDie, 38, Levels.LevelTypes.DineLevel);
             Items.RegisterScrap(sacrificerDie, 23, Levels.LevelTypes.TitanLevel);
 
             harmony.PatchAll();
