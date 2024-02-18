@@ -15,8 +15,8 @@ namespace MysteryDice.Effects
     {
         public string Name => "Ship Turret";
 
-        public static int MaxTurretsToSpawn = 2;
-        public EffectType Outcome => EffectType.Bad;
+        public static int MaxTurretsToSpawn = 4;
+        public EffectType Outcome => EffectType.Awful;
         public bool ShowDefaultTooltip => true;
         public string Tooltip => "Turret spawned near the ship!";
 

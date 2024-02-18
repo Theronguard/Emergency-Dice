@@ -349,9 +349,9 @@ namespace MysteryDice
 
         #region ScrapJackpot
         [ServerRpc(RequireOwnership = false)]
-        public void JackpotServerRPC(ulong userID)
+        public void JackpotServerRPC(ulong userID, int amount)
         {
-            ScrapJackpot.JackpotScrap(userID);
+            ScrapJackpot.JackpotScrap(userID, amount);
         }
 
         [ClientRpc]

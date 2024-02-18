@@ -19,7 +19,7 @@ namespace MysteryDice
     {
         private const string modGUID = "Theronguard.EmergencyDice";
         private const string modName = "Emergency Dice";
-        private const string modVersion = "1.1.14";
+        private const string modVersion = "1.1.15";
 
         private readonly Harmony harmony = new Harmony(modGUID);
         public static ManualLogSource CustomLogger;
@@ -31,7 +31,7 @@ namespace MysteryDice
         public static AudioClip ExplosionSFX,DetonateSFX, MineSFX, AwfulEffectSFX, BadEffectSFX, GoodEffectSFX, JumpscareSFX, AlarmSFX, PurrSFX;
         public static Sprite WarningBracken, WarningJester, WarningDeath, WarningLuck;
 
-        public static Item DebugEmergencyDie, DebugGamblerDie, DebugChronosDie, DebugSacrificerDie, PathfinderSpawner;
+        public static Item DebugEmergencyDie, DebugGamblerDie, DebugChronosDie, DebugSacrificerDie, PathfinderSpawner, DebugSaintDie, DebugRustyDie;
 
         public static ConfigFile BepInExConfig = null;
         void Awake()
@@ -92,8 +92,8 @@ namespace MysteryDice
             DebugEmergencyDie = emergencyDie;
 
             Item chronosDie = LoadedAssets.LoadAsset<Item>("Chronos");
-            chronosDie.minValue = 150;
-            chronosDie.maxValue = 200;
+            chronosDie.minValue = 120;
+            chronosDie.maxValue = 140;
 
             ChronosDie scriptChronos = chronosDie.spawnPrefab.AddComponent<ChronosDie>();
             scriptChronos.grabbable = true;
@@ -112,6 +112,30 @@ namespace MysteryDice
             scriptSacrificer.itemProperties = sacrificerDie;
 
             DebugSacrificerDie = sacrificerDie;
+
+            Item saintDie = LoadedAssets.LoadAsset<Item>("Saint");
+            saintDie.minValue = 210;
+            saintDie.maxValue = 280;
+
+            SaintDie scriptSaint = saintDie.spawnPrefab.AddComponent<SaintDie>();
+            scriptSaint.grabbable = true;
+            scriptSaint.grabbableToEnemies = true;
+            scriptSaint.itemProperties = saintDie;
+
+            DebugSaintDie = saintDie;
+
+
+            Item scrapDie = LoadedAssets.LoadAsset<Item>("Rusty");
+            scrapDie.minValue = 90;
+            scrapDie.maxValue = 160;
+
+            RustyDie scriptRusty = scrapDie.spawnPrefab.AddComponent<RustyDie>();
+            scriptRusty.grabbable = true;
+            scriptRusty.grabbableToEnemies = true;
+            scriptRusty.itemProperties = scrapDie;
+
+            DebugRustyDie = scrapDie;
+
 
             PathfinderSpawner = LoadedAssets.LoadAsset<Item>("Pathblob");
             
@@ -136,6 +160,8 @@ namespace MysteryDice
             LethalLib.Modules.NetworkPrefabs.RegisterNetworkPrefab(emergencyDie.spawnPrefab);
             LethalLib.Modules.NetworkPrefabs.RegisterNetworkPrefab(chronosDie.spawnPrefab);
             LethalLib.Modules.NetworkPrefabs.RegisterNetworkPrefab(sacrificerDie.spawnPrefab);
+            LethalLib.Modules.NetworkPrefabs.RegisterNetworkPrefab(saintDie.spawnPrefab);
+            LethalLib.Modules.NetworkPrefabs.RegisterNetworkPrefab(scrapDie.spawnPrefab);
             LethalLib.Modules.NetworkPrefabs.RegisterNetworkPrefab(PathfinderSpawner.spawnPrefab);
             LethalLib.Modules.NetworkPrefabs.RegisterNetworkPrefab(PathfinderPrefab);
 
@@ -143,7 +169,8 @@ namespace MysteryDice
             Utilities.FixMixerGroups(emergencyDie.spawnPrefab);
             Utilities.FixMixerGroups(chronosDie.spawnPrefab);
             Utilities.FixMixerGroups(sacrificerDie.spawnPrefab);
-            Utilities.FixMixerGroups(mysteryDie.spawnPrefab);
+            Utilities.FixMixerGroups(saintDie.spawnPrefab);
+            Utilities.FixMixerGroups(scrapDie.spawnPrefab);
 
             Items.RegisterScrap(mysteryDie, 13, Levels.LevelTypes.ExperimentationLevel | Levels.LevelTypes.AssuranceLevel);
             Items.RegisterScrap(mysteryDie, 15, Levels.LevelTypes.VowLevel);
@@ -165,6 +192,21 @@ namespace MysteryDice
             Items.RegisterScrap(sacrificerDie, 35, Levels.LevelTypes.RendLevel);
             Items.RegisterScrap(sacrificerDie, 38, Levels.LevelTypes.DineLevel);
             Items.RegisterScrap(sacrificerDie, 23, Levels.LevelTypes.TitanLevel);
+
+            Items.RegisterScrap(saintDie, 10, Levels.LevelTypes.ExperimentationLevel | Levels.LevelTypes.AssuranceLevel);
+            Items.RegisterScrap(saintDie, 10, Levels.LevelTypes.VowLevel);
+            Items.RegisterScrap(saintDie, 10, Levels.LevelTypes.OffenseLevel | Levels.LevelTypes.MarchLevel);
+            Items.RegisterScrap(saintDie, 12, Levels.LevelTypes.RendLevel);
+            Items.RegisterScrap(saintDie, 15, Levels.LevelTypes.DineLevel);
+            Items.RegisterScrap(saintDie, 12, Levels.LevelTypes.TitanLevel);
+
+            Items.RegisterScrap(scrapDie, 15, Levels.LevelTypes.ExperimentationLevel | Levels.LevelTypes.AssuranceLevel);
+            Items.RegisterScrap(scrapDie, 5, Levels.LevelTypes.VowLevel);
+            Items.RegisterScrap(scrapDie, 18, Levels.LevelTypes.OffenseLevel);
+            Items.RegisterScrap(scrapDie, 5, Levels.LevelTypes.MarchLevel);
+            Items.RegisterScrap(scrapDie, 16, Levels.LevelTypes.RendLevel);
+            Items.RegisterScrap(scrapDie, 26, Levels.LevelTypes.DineLevel);
+            Items.RegisterScrap(scrapDie, 14, Levels.LevelTypes.TitanLevel);
 
             harmony.PatchAll();
             CustomLogger.LogInfo("The Emergency Dice mod was initialized!");

@@ -49,6 +49,12 @@ namespace MysteryDice.Patches
                         case 4:
                             selectedDie = MysteryDice.DebugSacrificerDie.spawnPrefab;
                             break;
+                        case 5:
+                            selectedDie = MysteryDice.DebugSaintDie.spawnPrefab;
+                            break;
+                        case 6:
+                            selectedDie = MysteryDice.DebugRustyDie.spawnPrefab;
+                            break;
                     }
 
                     GameObject obj = UnityEngine.Object.Instantiate

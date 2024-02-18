@@ -1,5 +1,3 @@
-![](https://i.imgur.com/FONmSL9.png)
-
 # Emergency Dice
 
 This mod adds five new items (and more coming soon):
@@ -11,9 +9,11 @@ This mod adds five new items (and more coming soon):
 
 ## Emergency Die
 
+![](https://i.imgur.com/gGdBSz0.png)
+
 This is an item you can buy from the store.
 It is a one time use only die, which teleports you to the ship with all your items.
-There's one catch though. It has a 50/50 chance of working.
+But, not always.
 
 * Rolling 6 will return you to the ship with all the crewmates standing near you (they need to be very close).
 * Rolling 4 or 5 will return you to the ship.
@@ -23,8 +23,10 @@ There's one catch though. It has a 50/50 chance of working.
 
 ## The Gambler
 
+![](https://i.imgur.com/J6biRWU.png)
+
 A new scrap item with rolling outcomes similar to the Emergency die,
-but with a larger pool of effects and a bigger chance for a bad outcome.
+but with a larger pool of postivie effects and a bigger chance for a bad outcome.
 
 * Rolling 6 will cause a Great effect.
 * Rolling 5 will cause a Good effect.
@@ -37,9 +39,14 @@ You can either sell it, or use it.
 
 ## Chronos
 
+![](https://i.imgur.com/wMPUsZB.png)
+
 Similar to The Gambler. Has a higher chance of getting a great effect,
 but the outcomes change when the time passes. As the night
 comes, the chances to roll a bad/awful effect increase.
+
+It's probably better to use it earlier in the day, but this can
+make your whole day troublesome.
 
 * Rolling 6 will cause a Great effect.
 * Rolling 5 will cause a Good or a Great effect.
@@ -50,10 +57,11 @@ comes, the chances to roll a bad/awful effect increase.
 
 You can either sell it, or use it.
 
-
 ## The Sacrificer
 
-Guarantees a return to the ship, and a bad effect.
+![](https://i.imgur.com/7qePubu.png)
+
+Guarantees a return to the ship, and a bad/awful effect.
 
 * Rolling 6 will cause a Bad effect.
 * Rolling 5 will cause a Bad effect.
@@ -62,51 +70,93 @@ Guarantees a return to the ship, and a bad effect.
 * Rolling 2 will cause an Awful effect.
 * Rolling 1 will cause two Awful effects.
 
+## The Saint
+
+![](https://i.imgur.com/g5gaoUH.png)
+
+This one will never roll a bad or an awful effect.
+It's the rarest die in this mod, so don't expect to see it a lot.
+
+* Rolling 6 will cause a Great effect.
+* Rolling 5 will cause a Great effect.
+* Rolling 4 will cause a Good effect.
+* Rolling 3 will cause a Good effect.
+* Rolling 2 will cause a Good effect.
+* Rolling 1 will waste the die.
+
+## Rusty
+
+![](https://i.imgur.com/SjLWGEx.png)
+
+Spawns scrap. Only scrap. Higher rolls mean more scrap.
+Has negative outcomes.
+
+* Rolling 6 will spawn 7-8 scrap.
+* Rolling 5 will spawn 5-6 scrap
+* Rolling 4 will spawn 3-4 scrap.
+* Rolling 3 will spawn 1-2 scrap.
+* Rolling 2 will cause a Bad effect.
+* Rolling 1 will cause a Good effect
+
 ## Effects
 
-### Positive
+### Great
 
 * Gives you Pathfinding Blobs - a new item which shows everyone the way to the main entrance when used
-* Gives you a shotgun with ammo
-* Heals all alive players and restores their batteries in every item
-* Teleports you to the ship with your items
-* Spawns about 3-9 (random) scrap items beneath you with a lower weight.
-* Revives every dead player
-* Gives you infinite stamina
+* Increases company's item selling rate for the current quota
 * Gives everyone infinite stamina
-* Increases company's item rate for the current quota
 * Makes all the living enemies explode and die
+* Teleports you and anyone near you to the ship with items
+* Revives every dead player
+* Spawns about 3-9 (random) scrap items beneath you with a lower weight.
+* Gives you a shotgun with ammo
+
+### Good
+
 * Makes all flashlights brighter
-* More to come
+* Heals all alive players and restores their batteries in every item
+* Gives you infinite stamina
+* Teleports you to the ship with your items
 
-### Negative
+### Mixed
 
-* Spawns a jester in a popped state, and pops all already existing jesters.
-* Creates a lot of fake fire exits
+* Swaps places with another player
+
+### Bad
+
+* Makes you emit an annoying sound periodically
+* Spawns spiders and makes them faster
 * Spawns an armageddon outside
-* Spawns a lot of bee hives outside
 * Spawns a lot of bugs inside
-* Detonates a random player
+* Makes the ship door malfunction
+* Creates a lot of fake fire exits
 * Blocks all fire exits
 * Closes all open doors and locks them
 * Jumpscares you (can be changed in the settings to be mild)
 * Spawns a lot of mines inside
-* Spawns a lot of mines outside
 * Changes your speech, and makes it harder to communicate
-* Causes coilheads to sometimes ignore your stare, which allows them to move while being watched.
-* Creates turrets near the ship
 * Teleports you inside
 * Turns off all lights permanently
-* Creates a lot of turrets
+
+### Awful
+
+* Spawns a lot of bee hives outside
+* Detonates a random player
+* Spawns a jester in a popped state, and pops all already existing jesters.
+* Spawns landmines and makes them move
+* Spawns a coilhead outside
+* Causes coilheads to sometimes ignore your stare, which allows them to move while being watched.
+* Creates turrets near the ship
+* Spawns invisible mines inside
+* Creates a lot of turrets inside which shoot instantly
 * Spawns a lot of worms outside
 * Spawns a lot of zombies inside
 * Teleports you to the ship, but leaves a zombie in your place
-* Makes you emit an annoying sound periodically
-* Makes the ship door malfunction
-* Spawns spiders and makes them faster
-* Spawns landmines and makes them move
-* Spawns a coilhead outside
-* More to come
+* Spawns a lot of mines outside
+
+## More to come!
+
+
 
 
 ### Config

@@ -17,10 +17,10 @@ namespace MysteryDice.Effects
 
         public void Use()
         {
-            Networker.Instance.JackpotServerRPC(GameNetworkManager.Instance.localPlayerController.playerClientId);
+            Networker.Instance.JackpotServerRPC(GameNetworkManager.Instance.localPlayerController.playerClientId, UnityEngine.Random.Range(3, 9));
         }
 
-        public static void JackpotScrap(ulong userID)
+        public static void JackpotScrap(ulong userID, int amount)
         {
             PlayerControllerB player = Misc.GetPlayerByUserID(userID);
 
@@ -31,7 +31,7 @@ namespace MysteryDice.Effects
             List<int> scrapValues = new List<int>();
             List<float> scrapWeights = new List<float>();
 
-            int amountOfScrap = UnityEngine.Random.Range(3, 9);
+            int amountOfScrap = amount;
 
             List<int> weightList = new List<int>(RM.currentLevel.spawnableScrap.Count);
             for (int j = 0; j < RM.currentLevel.spawnableScrap.Count; j++)

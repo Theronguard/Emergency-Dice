@@ -77,6 +77,8 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Dice\RustyDie.cs" />
+    <Compile Include="Dice\SaintDie.cs" />
     <Compile Include="Dice\SacrificerDie.cs" />
     <Compile Include="Dice\DieBehaviour.cs" />
     <Compile Include="Dice\EmergencyDie.cs" />
@@ -150,6 +152,7 @@
     <Compile Include="Visual\ColorGradient.cs" />
     <Compile Include="Visual\CycleSigns.cs" />
     <Compile Include="Visual\Blinking.cs" />
+    <Compile Include="Visual\HaloSpin.cs" />
     <Compile Include="Visual\Jumpscare.cs" />
     <Compile Include="Visual\Spinner.cs" />
   </ItemGroup>

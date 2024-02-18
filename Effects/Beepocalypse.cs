@@ -14,7 +14,7 @@ namespace MysteryDice.Effects
     internal class Beepocalypse : IEffect
     {
         public string Name => "Beepocalypse";
-        public EffectType Outcome => EffectType.Bad;
+        public EffectType Outcome => EffectType.Awful;
         public bool ShowDefaultTooltip => true;
         public string Tooltip => "Bee swarm";
 
