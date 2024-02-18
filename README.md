@@ -96,7 +96,7 @@ Has negative outcomes.
 * Rolling 4 will spawn 3-4 scrap.
 * Rolling 3 will spawn 1-2 scrap.
 * Rolling 2 will cause a Bad effect.
-* Rolling 1 will cause a Good effect
+* Rolling 1 will cause an Awful effect
 
 ## Effects
 
