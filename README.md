@@ -1,11 +1,6 @@
 # Emergency Dice
 
-This mod adds five new items (and more coming soon):
-* Emergency Die
-* The Gambler
-* Chronos
-* The Sacrificer
-* Pathfinding blobs (not a dice item)
+This mod adds new items (equipment and scrap)
 
 ## Emergency Die
 
@@ -17,7 +12,7 @@ But, not always.
 
 * Rolling 6 will return you to the ship with all the crewmates standing near you (they need to be very close).
 * Rolling 4 or 5 will return you to the ship.
-* Rolling 3 has a mixed effect. It can be bad, it can be good.
+* Rolling 3 will cause a mixed effect.
 * Rolling 2 will cause something bad to happen.
 * You don't want to roll a 1.
 
