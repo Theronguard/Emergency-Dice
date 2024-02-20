@@ -11,6 +11,7 @@ using MysteryDice.Dice;
 using System;
 using BepInEx.Configuration;
 using MysteryDice.Patches;
+using System.Collections.Generic;
 
 namespace MysteryDice
 {
@@ -28,10 +29,10 @@ namespace MysteryDice
         public static GameObject NetworkerPrefab, JumpscareCanvasPrefab, JumpscareOBJ, PathfinderPrefab;
         public static Jumpscare JumpscareScript;
 
-        public static AudioClip ExplosionSFX,DetonateSFX, MineSFX, AwfulEffectSFX, BadEffectSFX, GoodEffectSFX, JumpscareSFX, AlarmSFX, PurrSFX;
+        public static AudioClip ExplosionSFX, DetonateSFX, MineSFX, AwfulEffectSFX, BadEffectSFX, GoodEffectSFX, JumpscareSFX, AlarmSFX, PurrSFX;
         public static Sprite WarningBracken, WarningJester, WarningDeath, WarningLuck;
 
-        public static Item DebugEmergencyDie, DebugGamblerDie, DebugChronosDie, DebugSacrificerDie, PathfinderSpawner, DebugSaintDie, DebugRustyDie;
+        public static Item DieEmergency, DieGambler, DieChronos, DieSacrificer, DieSaint, DieRusty, PathfinderSpawner;
 
         public static ConfigFile BepInExConfig = null;
         void Awake()
@@ -42,9 +43,9 @@ namespace MysteryDice
 
             ModConfig();
             DieBehaviour.Config();
-            
+
             NetcodeWeaver();
-           
+
             LoadedAssets = AssetBundle.LoadFromFile(Path.Combine(Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location), "mysterydice"));
 
             ExplosionSFX = LoadedAssets.LoadAsset<AudioClip>("MineDetonate");
@@ -70,143 +71,17 @@ namespace MysteryDice
             PathfinderPrefab = LoadedAssets.LoadAsset<GameObject>("Pathfinder");
             PathfinderPrefab.AddComponent<Pathfinder.PathfindBehaviour>();
 
-            Item mysteryDie = LoadedAssets.LoadAsset<Item>("MysteryDiceItem");
-            mysteryDie.minValue = 100;
-            mysteryDie.maxValue = 130;
-
-            GamblerDie scriptMystery = mysteryDie.spawnPrefab.AddComponent<GamblerDie>();
-            scriptMystery.grabbable = true;
-            scriptMystery.grabbableToEnemies = true;
-            scriptMystery.itemProperties = mysteryDie;
-
-            DebugGamblerDie = mysteryDie;
-
-            Item emergencyDie = LoadedAssets.LoadAsset<Item>("Emergency Dice Script");
-            emergencyDie.highestSalePercentage = 80;
-
-            EmergencyDie scriptEmergency = emergencyDie.spawnPrefab.AddComponent<EmergencyDie>();
-            scriptEmergency.grabbable = true;
-            scriptEmergency.grabbableToEnemies = true;
-            scriptEmergency.itemProperties = emergencyDie;
-
-            DebugEmergencyDie = emergencyDie;
-
-            Item chronosDie = LoadedAssets.LoadAsset<Item>("Chronos");
-            chronosDie.minValue = 120;
-            chronosDie.maxValue = 140;
-
-            ChronosDie scriptChronos = chronosDie.spawnPrefab.AddComponent<ChronosDie>();
-            scriptChronos.grabbable = true;
-            scriptChronos.grabbableToEnemies = true;
-            scriptChronos.itemProperties = chronosDie;
-
-            DebugChronosDie = chronosDie;
-
-            Item sacrificerDie = LoadedAssets.LoadAsset<Item>("Sacrificer");
-            sacrificerDie.minValue = 170;
-            sacrificerDie.maxValue = 230;
-
-            SacrificerDie scriptSacrificer = sacrificerDie.spawnPrefab.AddComponent<SacrificerDie>();
-            scriptSacrificer.grabbable = true;
-            scriptSacrificer.grabbableToEnemies = true;
-            scriptSacrificer.itemProperties = sacrificerDie;
-
-            DebugSacrificerDie = sacrificerDie;
-
-            Item saintDie = LoadedAssets.LoadAsset<Item>("Saint");
-            saintDie.minValue = 210;
-            saintDie.maxValue = 280;
-
-            SaintDie scriptSaint = saintDie.spawnPrefab.AddComponent<SaintDie>();
-            scriptSaint.grabbable = true;
-            scriptSaint.grabbableToEnemies = true;
-            scriptSaint.itemProperties = saintDie;
-
-            DebugSaintDie = saintDie;
-
-
-            Item scrapDie = LoadedAssets.LoadAsset<Item>("Rusty");
-            scrapDie.minValue = 90;
-            scrapDie.maxValue = 160;
-
-            RustyDie scriptRusty = scrapDie.spawnPrefab.AddComponent<RustyDie>();
-            scriptRusty.grabbable = true;
-            scriptRusty.grabbableToEnemies = true;
-            scriptRusty.itemProperties = scrapDie;
-
-            DebugRustyDie = scrapDie;
-
-
             PathfinderSpawner = LoadedAssets.LoadAsset<Item>("Pathblob");
-            
+
             Pathfinder.BlobspawnerBehaviour scriptBlobspawner = PathfinderSpawner.spawnPrefab.AddComponent<Pathfinder.BlobspawnerBehaviour>();
             scriptBlobspawner.grabbable = true;
             scriptBlobspawner.grabbableToEnemies = true;
             scriptBlobspawner.itemProperties = PathfinderSpawner;
 
-            TerminalNode node = ScriptableObject.CreateInstance<TerminalNode>();
-            node.clearPreviousText = true;
-            node.displayText = "This handy, unstable device might be your last chance to save yourself.\n\n" +
-                "Rolls a number from 1 to 6:\n" +
-                "-Rolling 6 teleports you and players standing closely near you to the ship with all your items.\n" +
-                "-Rolling 4 or 5 teleports you to the ship with all your items.\n" +
-                "-Rolling 3 might be bad, or might be good. You decide? \n" +
-                "-Rolling 2 will causes some problems\n" +
-                "-You dont want to roll a 1\n";
-
-            Items.RegisterShopItem(emergencyDie, null, null, node, 200);
-
-            LethalLib.Modules.NetworkPrefabs.RegisterNetworkPrefab(mysteryDie.spawnPrefab);
-            LethalLib.Modules.NetworkPrefabs.RegisterNetworkPrefab(emergencyDie.spawnPrefab);
-            LethalLib.Modules.NetworkPrefabs.RegisterNetworkPrefab(chronosDie.spawnPrefab);
-            LethalLib.Modules.NetworkPrefabs.RegisterNetworkPrefab(sacrificerDie.spawnPrefab);
-            LethalLib.Modules.NetworkPrefabs.RegisterNetworkPrefab(saintDie.spawnPrefab);
-            LethalLib.Modules.NetworkPrefabs.RegisterNetworkPrefab(scrapDie.spawnPrefab);
             LethalLib.Modules.NetworkPrefabs.RegisterNetworkPrefab(PathfinderSpawner.spawnPrefab);
             LethalLib.Modules.NetworkPrefabs.RegisterNetworkPrefab(PathfinderPrefab);
 
-            Utilities.FixMixerGroups(mysteryDie.spawnPrefab); //fixes audio
-            Utilities.FixMixerGroups(emergencyDie.spawnPrefab);
-            Utilities.FixMixerGroups(chronosDie.spawnPrefab);
-            Utilities.FixMixerGroups(sacrificerDie.spawnPrefab);
-            Utilities.FixMixerGroups(saintDie.spawnPrefab);
-            Utilities.FixMixerGroups(scrapDie.spawnPrefab);
-
-            Items.RegisterScrap(mysteryDie, 13, Levels.LevelTypes.ExperimentationLevel | Levels.LevelTypes.AssuranceLevel);
-            Items.RegisterScrap(mysteryDie, 15, Levels.LevelTypes.VowLevel);
-            Items.RegisterScrap(mysteryDie, 17, Levels.LevelTypes.OffenseLevel | Levels.LevelTypes.MarchLevel);
-            Items.RegisterScrap(mysteryDie, 33, Levels.LevelTypes.RendLevel);
-            Items.RegisterScrap(mysteryDie, 46, Levels.LevelTypes.DineLevel);
-            Items.RegisterScrap(mysteryDie, 30, Levels.LevelTypes.TitanLevel);
-
-            Items.RegisterScrap(chronosDie, 17, Levels.LevelTypes.ExperimentationLevel | Levels.LevelTypes.AssuranceLevel);
-            Items.RegisterScrap(chronosDie, 17, Levels.LevelTypes.VowLevel);
-            Items.RegisterScrap(chronosDie, 25, Levels.LevelTypes.OffenseLevel | Levels.LevelTypes.MarchLevel);
-            Items.RegisterScrap(chronosDie, 22, Levels.LevelTypes.RendLevel);
-            Items.RegisterScrap(chronosDie, 41, Levels.LevelTypes.DineLevel);
-            Items.RegisterScrap(chronosDie, 33, Levels.LevelTypes.TitanLevel);
-
-            Items.RegisterScrap(sacrificerDie, 20, Levels.LevelTypes.ExperimentationLevel | Levels.LevelTypes.AssuranceLevel);
-            Items.RegisterScrap(sacrificerDie, 20, Levels.LevelTypes.VowLevel);
-            Items.RegisterScrap(sacrificerDie, 20, Levels.LevelTypes.OffenseLevel | Levels.LevelTypes.MarchLevel);
-            Items.RegisterScrap(sacrificerDie, 35, Levels.LevelTypes.RendLevel);
-            Items.RegisterScrap(sacrificerDie, 38, Levels.LevelTypes.DineLevel);
-            Items.RegisterScrap(sacrificerDie, 23, Levels.LevelTypes.TitanLevel);
-
-            Items.RegisterScrap(saintDie, 10, Levels.LevelTypes.ExperimentationLevel | Levels.LevelTypes.AssuranceLevel);
-            Items.RegisterScrap(saintDie, 10, Levels.LevelTypes.VowLevel);
-            Items.RegisterScrap(saintDie, 10, Levels.LevelTypes.OffenseLevel | Levels.LevelTypes.MarchLevel);
-            Items.RegisterScrap(saintDie, 12, Levels.LevelTypes.RendLevel);
-            Items.RegisterScrap(saintDie, 15, Levels.LevelTypes.DineLevel);
-            Items.RegisterScrap(saintDie, 12, Levels.LevelTypes.TitanLevel);
-
-            Items.RegisterScrap(scrapDie, 15, Levels.LevelTypes.ExperimentationLevel | Levels.LevelTypes.AssuranceLevel);
-            Items.RegisterScrap(scrapDie, 5, Levels.LevelTypes.VowLevel);
-            Items.RegisterScrap(scrapDie, 18, Levels.LevelTypes.OffenseLevel);
-            Items.RegisterScrap(scrapDie, 5, Levels.LevelTypes.MarchLevel);
-            Items.RegisterScrap(scrapDie, 16, Levels.LevelTypes.RendLevel);
-            Items.RegisterScrap(scrapDie, 26, Levels.LevelTypes.DineLevel);
-            Items.RegisterScrap(scrapDie, 14, Levels.LevelTypes.TitanLevel);
+            LoadDice();
 
             harmony.PatchAll();
             CustomLogger.LogInfo("The Emergency Dice mod was initialized!");
@@ -255,7 +130,183 @@ namespace MysteryDice
                 "Enables chat commands for the admin. Mainly for debugging.");
 
             ChatPatch.AllowChatDebug = allowChatCommands.Value;
-            
+
+        }
+
+        public static Dictionary<string, Levels.LevelTypes> RegLevels = new Dictionary<string, Levels.LevelTypes>
+        {
+            {Consts.Experimentation,Levels.LevelTypes.ExperimentationLevel},
+            {Consts.Assurance,Levels.LevelTypes.AssuranceLevel},
+            {Consts.Vow,Levels.LevelTypes.VowLevel},
+            {Consts.Offense,Levels.LevelTypes.OffenseLevel},
+            {Consts.March,Levels.LevelTypes.MarchLevel},
+            {Consts.Rend,Levels.LevelTypes.RendLevel},
+            {Consts.Dine,Levels.LevelTypes.DineLevel},
+            {Consts.Titan,Levels.LevelTypes.TitanLevel}
+        };
+
+        public static List<Item> RegisteredDice = new List<Item>();
+
+        public static void LoadDice()
+        {
+            Item DieGambler = LoadedAssets.LoadAsset<Item>("MysteryDiceItem");
+            DieGambler.minValue = 100;
+            DieGambler.maxValue = 130;
+
+            GamblerDie scriptMystery = DieGambler.spawnPrefab.AddComponent<GamblerDie>();
+            scriptMystery.grabbable = true;
+            scriptMystery.grabbableToEnemies = true;
+            scriptMystery.itemProperties = DieGambler;
+
+            RegisteredDice.Add(DieGambler);
+
+            ///
+
+            Item DieEmergency = LoadedAssets.LoadAsset<Item>("Emergency Dice Script");
+            DieEmergency.highestSalePercentage = 80;
+
+            EmergencyDie scriptEmergency = DieEmergency.spawnPrefab.AddComponent<EmergencyDie>();
+            scriptEmergency.grabbable = true;
+            scriptEmergency.grabbableToEnemies = true;
+            scriptEmergency.itemProperties = DieEmergency;
+
+            RegisteredDice.Add(DieEmergency);
+
+            ///
+
+            Item DieChronos = LoadedAssets.LoadAsset<Item>("Chronos");
+            DieChronos.minValue = 120;
+            DieChronos.maxValue = 140;
+
+            ChronosDie scriptChronos = DieChronos.spawnPrefab.AddComponent<ChronosDie>();
+            scriptChronos.grabbable = true;
+            scriptChronos.grabbableToEnemies = true;
+            scriptChronos.itemProperties = DieChronos;
+
+            RegisteredDice.Add(DieChronos);
+
+            ///
+
+            Item DieSacrificer = LoadedAssets.LoadAsset<Item>("Sacrificer");
+            DieSacrificer.minValue = 170;
+            DieSacrificer.maxValue = 230;
+
+            SacrificerDie scriptSacrificer = DieSacrificer.spawnPrefab.AddComponent<SacrificerDie>();
+            scriptSacrificer.grabbable = true;
+            scriptSacrificer.grabbableToEnemies = true;
+            scriptSacrificer.itemProperties = DieSacrificer;
+
+            RegisteredDice.Add(DieSacrificer);
+
+            ///
+
+            Item DieSaint = LoadedAssets.LoadAsset<Item>("Saint");
+            DieSaint.minValue = 210;
+            DieSaint.maxValue = 280;
+
+            SaintDie scriptSaint = DieSaint.spawnPrefab.AddComponent<SaintDie>();
+            scriptSaint.grabbable = true;
+            scriptSaint.grabbableToEnemies = true;
+            scriptSaint.itemProperties = DieSaint;
+
+            RegisteredDice.Add(DieSaint);
+
+            ///
+
+            Item DieRusty = LoadedAssets.LoadAsset<Item>("Rusty");
+            DieRusty.minValue = 90;
+            DieRusty.maxValue = 160;
+
+            RustyDie scriptRusty = DieRusty.spawnPrefab.AddComponent<RustyDie>();
+            scriptRusty.grabbable = true;
+            scriptRusty.grabbableToEnemies = true;
+            scriptRusty.itemProperties = DieRusty;
+
+            RegisteredDice.Add(DieRusty);
+
+            ///
+
+            TerminalNode node = ScriptableObject.CreateInstance<TerminalNode>();
+            node.clearPreviousText = true;
+            node.displayText = "This handy, unstable device might be your last chance to save yourself.\n\n" +
+                "Rolls a number from 1 to 6:\n" +
+                "-Rolling 6 teleports you and players standing closely near you to the ship with all your items.\n" +
+                "-Rolling 4 or 5 teleports you to the ship with all your items.\n" +
+                "-Rolling 3 might be bad, or might be good. You decide? \n" +
+                "-Rolling 2 will causes some problems\n" +
+                "-You dont want to roll a 1\n";
+
+            Items.RegisterShopItem(DieEmergency, null, null, node, 200);
+
+            Dictionary<(string,string),int> DefaultSpawnRates = new Dictionary<(string, string), int>();
+
+            DefaultSpawnRates.Add((DieGambler.itemName, Consts.Experimentation), 13);
+            DefaultSpawnRates.Add((DieGambler.itemName, Consts.Assurance), 13);
+            DefaultSpawnRates.Add((DieGambler.itemName, Consts.Vow), 15);
+            DefaultSpawnRates.Add((DieGambler.itemName, Consts.Offense), 17);
+            DefaultSpawnRates.Add((DieGambler.itemName, Consts.March), 17);
+            DefaultSpawnRates.Add((DieGambler.itemName, Consts.Rend), 33);
+            DefaultSpawnRates.Add((DieGambler.itemName, Consts.Dine), 46);
+            DefaultSpawnRates.Add((DieGambler.itemName, Consts.Titan), 30);
+
+            DefaultSpawnRates.Add((DieChronos.itemName, Consts.Experimentation), 17);
+            DefaultSpawnRates.Add((DieChronos.itemName, Consts.Assurance), 17);
+            DefaultSpawnRates.Add((DieChronos.itemName, Consts.Vow), 17);
+            DefaultSpawnRates.Add((DieChronos.itemName, Consts.Offense), 25);
+            DefaultSpawnRates.Add((DieChronos.itemName, Consts.March), 25);
+            DefaultSpawnRates.Add((DieChronos.itemName, Consts.Rend), 22);
+            DefaultSpawnRates.Add((DieChronos.itemName, Consts.Dine), 41);
+            DefaultSpawnRates.Add((DieChronos.itemName, Consts.Titan), 33);
+
+            DefaultSpawnRates.Add((DieSacrificer.itemName, Consts.Experimentation), 20);
+            DefaultSpawnRates.Add((DieSacrificer.itemName, Consts.Assurance), 20);
+            DefaultSpawnRates.Add((DieSacrificer.itemName, Consts.Vow), 20);
+            DefaultSpawnRates.Add((DieSacrificer.itemName, Consts.Offense), 20);
+            DefaultSpawnRates.Add((DieSacrificer.itemName, Consts.March), 20);
+            DefaultSpawnRates.Add((DieSacrificer.itemName, Consts.Rend), 35);
+            DefaultSpawnRates.Add((DieSacrificer.itemName, Consts.Dine), 38);
+            DefaultSpawnRates.Add((DieSacrificer.itemName, Consts.Titan), 23);
+
+            DefaultSpawnRates.Add((DieSaint.itemName, Consts.Experimentation), 10);
+            DefaultSpawnRates.Add((DieSaint.itemName, Consts.Assurance), 10);
+            DefaultSpawnRates.Add((DieSaint.itemName, Consts.Vow), 10);
+            DefaultSpawnRates.Add((DieSaint.itemName, Consts.Offense), 10);
+            DefaultSpawnRates.Add((DieSaint.itemName, Consts.March), 10);
+            DefaultSpawnRates.Add((DieSaint.itemName, Consts.Rend), 12);
+            DefaultSpawnRates.Add((DieSaint.itemName, Consts.Dine), 15);
+            DefaultSpawnRates.Add((DieSaint.itemName, Consts.Titan), 12);
+
+            DefaultSpawnRates.Add((DieRusty.itemName, Consts.Experimentation), 15);
+            DefaultSpawnRates.Add((DieRusty.itemName, Consts.Assurance), 15);
+            DefaultSpawnRates.Add((DieRusty.itemName, Consts.Vow), 5);
+            DefaultSpawnRates.Add((DieRusty.itemName, Consts.Offense), 18);
+            DefaultSpawnRates.Add((DieRusty.itemName, Consts.March), 5);
+            DefaultSpawnRates.Add((DieRusty.itemName, Consts.Rend), 16);
+            DefaultSpawnRates.Add((DieRusty.itemName, Consts.Dine), 26);
+            DefaultSpawnRates.Add((DieRusty.itemName, Consts.Titan), 14);
+
+            foreach (Item die in RegisteredDice)
+            {
+                LethalLib.Modules.NetworkPrefabs.RegisterNetworkPrefab(die.spawnPrefab);
+                Utilities.FixMixerGroups(die.spawnPrefab);
+            }
+
+            foreach (Item die in RegisteredDice)
+            {
+                if (die == DieEmergency) continue;
+
+                foreach(KeyValuePair<string,Levels.LevelTypes> level in RegLevels)
+                {
+                    ConfigEntry<int> rate = BepInExConfig.Bind<int>(
+                        die.itemName + " Spawn rates",
+                        level.Key,
+                        DefaultSpawnRates[(die.itemName, level.Key)],
+                        "Sets how often this item spawns on this level. 0-10 is very rare, 10-25 is rare, 25+ is common. This is only from my observations."
+                    );
+
+                    Items.RegisterScrap(die, rate.Value, level.Value);
+                }
+            }
         }
     }
 }

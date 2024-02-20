@@ -34,26 +34,26 @@ namespace MysteryDice.Patches
                 
                 if(Int32.TryParse(args[2], out int diceNum))
                 {
-                    GameObject selectedDie = MysteryDice.DebugEmergencyDie.spawnPrefab;
+                    GameObject selectedDie = MysteryDice.DieEmergency.spawnPrefab;
                     switch (diceNum)
                     {
                         case 1:
-                            selectedDie = MysteryDice.DebugEmergencyDie.spawnPrefab;
+                            selectedDie = MysteryDice.DieEmergency.spawnPrefab;
                             break;
                         case 2:
-                            selectedDie = MysteryDice.DebugGamblerDie.spawnPrefab;
+                            selectedDie = MysteryDice.DieGambler.spawnPrefab;
                             break;
                         case 3:
-                            selectedDie = MysteryDice.DebugChronosDie.spawnPrefab;
+                            selectedDie = MysteryDice.DieChronos.spawnPrefab;
                             break;
                         case 4:
-                            selectedDie = MysteryDice.DebugSacrificerDie.spawnPrefab;
+                            selectedDie = MysteryDice.DieSacrificer.spawnPrefab;
                             break;
                         case 5:
-                            selectedDie = MysteryDice.DebugSaintDie.spawnPrefab;
+                            selectedDie = MysteryDice.DieSaint.spawnPrefab;
                             break;
                         case 6:
-                            selectedDie = MysteryDice.DebugRustyDie.spawnPrefab;
+                            selectedDie = MysteryDice.DieRusty.spawnPrefab;
                             break;
                     }
 

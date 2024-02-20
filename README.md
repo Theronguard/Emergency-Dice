@@ -164,6 +164,9 @@ You can modify which effects you want or not, or change some other settings.
 The [Allowed Effects] tab in the config syncs with all the clients,
 meaning that only server needs to disable/enable effects.
 
+Spawn rates are also serverside only, so no need to worry about having everyone
+syncing up their values with the host.
+
 ### Emergency die shop alias
 Some mods (like Lethal Things mod) might use conflicting item names in the shop.
 To solve this I added few aliases for the emergency die in the shop.
