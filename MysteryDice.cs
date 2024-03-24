@@ -226,19 +226,7 @@ namespace MysteryDice
 
             ///
 
-            TerminalNode node = ScriptableObject.CreateInstance<TerminalNode>();
-            node.clearPreviousText = true;
-            node.displayText = "This handy, unstable device might be your last chance to save yourself.\n\n" +
-                "Rolls a number from 1 to 6:\n" +
-                "-Rolling 6 teleports you and players standing closely near you to the ship with all your items.\n" +
-                "-Rolling 4 or 5 teleports you to the ship with all your items.\n" +
-                "-Rolling 3 might be bad, or might be good. You decide? \n" +
-                "-Rolling 2 will causes some problems\n" +
-                "-You dont want to roll a 1\n";
-
-            Items.RegisterShopItem(DieEmergency, null, null, node, 200);
-
-            Dictionary<(string,string),int> DefaultSpawnRates = new Dictionary<(string, string), int>();
+            Dictionary<(string, string), int> DefaultSpawnRates = new Dictionary<(string, string), int>();
 
             DefaultSpawnRates.Add((DieGambler.itemName, Consts.Experimentation), 13);
             DefaultSpawnRates.Add((DieGambler.itemName, Consts.Assurance), 13);
@@ -293,9 +281,30 @@ namespace MysteryDice
 
             foreach (Item die in RegisteredDice)
             {
+                ConfigEntry<Boolean> inShop = BepInExConfig.Bind<Boolean>(
+                    die.itemName + " Shop",
+                    "CanBuy",
+                    die == DieEmergency
+                );
+
+                ConfigEntry<Int32> cost = BepInExConfig.Bind<Int32>(
+                    die.itemName + " Shop",
+                    "Cost",
+                    200
+                );
+
+                if (inShop.Value)
+                {
+                    TerminalNode node = ScriptableObject.CreateInstance<TerminalNode>();
+                    node.clearPreviousText = true;
+                    node.displayText = GetDisplayText(die);
+
+                    Items.RegisterShopItem(die, null, null, node, cost.Value);
+                }
+
                 if (die == DieEmergency) continue;
 
-                foreach(KeyValuePair<string,Levels.LevelTypes> level in RegLevels)
+                foreach (KeyValuePair<string, Levels.LevelTypes> level in RegLevels)
                 {
                     ConfigEntry<int> rate = BepInExConfig.Bind<int>(
                         die.itemName + " Spawn rates",
@@ -307,6 +316,88 @@ namespace MysteryDice
                     Items.RegisterScrap(die, rate.Value, level.Value);
                 }
             }
+        }
+
+        private static string GetDisplayText(Item die)
+        {
+            string text = string.Empty;
+
+            switch (die.itemName)
+            {
+                case "Emergency Die":
+                    text = @"This handy, unstable device might be your last chance to save yourself.
+
+ Rolls a number from 1 to 6:
+ -Rolling 6 teleports you and players standing closely near you to the ship with all your items.
+ -Rolling 4 or 5 teleports you to the ship with all your items.
+ -Rolling 3 might be bad, or might be good. You decide? 
+ -Rolling 2 will causes some problems
+ -You dont want to roll a 1
+";
+                    break;
+                case "The Gambler":
+                    text = @"This item with rolling outcomes similar to the Emergency die, but with a larger pool of postivie effects and a bigger chance for a bad outcome.
+
+-Rolling 6 will cause a Great effect.
+-Rolling 5 will cause a Good effect.
+-Rolling 4 will cause either a Good or a Mixed effect.
+-Rolling 3 will cause a Bad effect.
+-Rolling 2 will cause either a Bad or an Awful effect.
+-Rolling 1 will cause an Awful effect.
+";
+                    break;
+                case "Chronos":
+                    text = @"This item has a higher chance of getting a great effect, but the outcomes change when the time passes. As the night comes, the chances to roll a bad/awful effect increase.
+
+It's probably better to use it earlier in the day, but this can make your whole day troublesome.
+
+-Rolling 6 will cause a Great effect.
+-Rolling 5 will cause a Good or a Great effect.
+-Rolling 4 will cause either a Bad, Good or a Great effect.
+-Rolling 3 will cause a Bad effect.
+-Rolling 2 will cause either a Bad or an Awful effect.
+-Rolling 1 will cause an Awful effect.
+";
+                    break;
+                case "The Sacrificer":
+                    text = @"This item guarantees a return to the ship, and a bad/awful effect.
+
+-Rolling 6 will cause a Bad effect.
+-Rolling 5 will cause a Bad effect.
+-Rolling 4 will cause a Bad effect.
+-Rolling 3 will cause a Bad or an Awful effect.
+-Rolling 2 will cause an Awful effect.
+-Rolling 1 will cause two Awful effects.
+";
+                    break;
+                case "The Saint":
+                    text = @"This item will never roll a bad or an awful effect. It's the rarest die in this mod, so don't expect to see it a lot.
+
+-Rolling 6 will cause a Great effect.
+-Rolling 5 will cause a Great effect.
+-Rolling 4 will cause a Good effect.
+-Rolling 3 will cause a Good effect.
+-Rolling 2 will cause a Good effect.
+-Rolling 1 will waste the die.
+";
+                    break;
+                case "Rusty":
+                    text = @"This item spawns scrap. Only scrap. Higher rolls mean more scrap. Has negative outcomes.
+
+-Rolling 6 will spawn 7-8 scrap.
+-Rolling 5 will spawn 5-6 scrap
+-Rolling 4 will spawn 3-4 scrap.
+-Rolling 3 will spawn 1-2 scrap.
+-Rolling 2 will cause a Bad effect.
+-Rolling 1 will cause an Awful effect
+";
+                    break;
+                default:
+                    text = "";
+                    break;
+            }
+
+            return text;
         }
     }
 }
