@@ -40,8 +40,9 @@
     <Reference Include="BepInEx">
       <HintPath>S:\Modding\Lethal company\Libs\BepInEx.dll</HintPath>
     </Reference>
-    <Reference Include="LethalLib">
-      <HintPath>S:\Modding\Lethal company\Libs\Evaisa-LethalLib-0.9.0\plugins\LethalLib\LethalLib.dll</HintPath>
+    <Reference Include="LethalLib, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>S:\Modding\Lethal company\Libs\Evaisa-LethalLib-0.9.0\LethalLib.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />

@@ -34,6 +34,7 @@ namespace MysteryDice.Patches
                 
                 if(Int32.TryParse(args[2], out int diceNum))
                 {
+
                     GameObject selectedDie = MysteryDice.DieEmergency.spawnPrefab;
                     switch (diceNum)
                     {

@@ -20,7 +20,7 @@ namespace MysteryDice
     {
         private const string modGUID = "Theronguard.EmergencyDice";
         private const string modName = "Emergency Dice";
-        private const string modVersion = "1.1.15";
+        private const string modVersion = "1.1.17";
 
         private readonly Harmony harmony = new Harmony(modGUID);
         public static ManualLogSource CustomLogger;
@@ -149,7 +149,8 @@ namespace MysteryDice
 
         public static void LoadDice()
         {
-            Item DieGambler = LoadedAssets.LoadAsset<Item>("MysteryDiceItem");
+            DieGambler = LoadedAssets.LoadAsset<Item>("MysteryDiceItem");
+
             DieGambler.minValue = 100;
             DieGambler.maxValue = 130;
 
@@ -160,9 +161,7 @@ namespace MysteryDice
 
             RegisteredDice.Add(DieGambler);
 
-            ///
-
-            Item DieEmergency = LoadedAssets.LoadAsset<Item>("Emergency Dice Script");
+            DieEmergency = LoadedAssets.LoadAsset<Item>("Emergency Dice Script");
             DieEmergency.highestSalePercentage = 80;
 
             EmergencyDie scriptEmergency = DieEmergency.spawnPrefab.AddComponent<EmergencyDie>();
@@ -174,7 +173,7 @@ namespace MysteryDice
 
             ///
 
-            Item DieChronos = LoadedAssets.LoadAsset<Item>("Chronos");
+            DieChronos = LoadedAssets.LoadAsset<Item>("Chronos");
             DieChronos.minValue = 120;
             DieChronos.maxValue = 140;
 
@@ -187,7 +186,7 @@ namespace MysteryDice
 
             ///
 
-            Item DieSacrificer = LoadedAssets.LoadAsset<Item>("Sacrificer");
+            DieSacrificer = LoadedAssets.LoadAsset<Item>("Sacrificer");
             DieSacrificer.minValue = 170;
             DieSacrificer.maxValue = 230;
 
@@ -200,7 +199,7 @@ namespace MysteryDice
 
             ///
 
-            Item DieSaint = LoadedAssets.LoadAsset<Item>("Saint");
+            DieSaint = LoadedAssets.LoadAsset<Item>("Saint");
             DieSaint.minValue = 210;
             DieSaint.maxValue = 280;
 
@@ -213,7 +212,7 @@ namespace MysteryDice
 
             ///
 
-            Item DieRusty = LoadedAssets.LoadAsset<Item>("Rusty");
+            DieRusty = LoadedAssets.LoadAsset<Item>("Rusty");
             DieRusty.minValue = 90;
             DieRusty.maxValue = 160;
 
@@ -284,6 +283,7 @@ namespace MysteryDice
             DefaultSpawnRates.Add((DieRusty.itemName, Consts.Rend), 16);
             DefaultSpawnRates.Add((DieRusty.itemName, Consts.Dine), 26);
             DefaultSpawnRates.Add((DieRusty.itemName, Consts.Titan), 14);
+
 
             foreach (Item die in RegisteredDice)
             {
