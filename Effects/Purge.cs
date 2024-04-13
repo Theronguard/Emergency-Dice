@@ -19,7 +19,7 @@ namespace MysteryDice.Effects
         {
             foreach(var enemy in RoundManager.Instance.SpawnedEnemies)
             {
-                Landmine.SpawnExplosion(enemy.transform.position, true, 2, 5);
+                Misc.SpawnExplosion(enemy.transform.position, true, 2, 5);
                 enemy.KillEnemy(true);
             }
         }
