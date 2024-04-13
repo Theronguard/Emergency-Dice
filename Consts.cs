@@ -8,6 +8,7 @@ namespace MysteryDice
 {
     public class Consts
     {
+        public const string Default = "Default";
         public const string Experimentation = "Experimentation";
         public const string Assurance = "Assurance";
         public const string Vow = "Vow";

@@ -20,7 +20,7 @@ namespace MysteryDice
     {
         private const string modGUID = "Theronguard.EmergencyDice";
         private const string modName = "Emergency Dice";
-        private const string modVersion = "1.1.17";
+        private const string modVersion = "1.1.19";
 
         private readonly Harmony harmony = new Harmony(modGUID);
         public static ManualLogSource CustomLogger;
@@ -239,6 +239,10 @@ namespace MysteryDice
 
             Dictionary<(string,string),int> DefaultSpawnRates = new Dictionary<(string, string), int>();
 
+
+            ///This probably could be refactored
+
+            DefaultSpawnRates.Add((DieGambler.itemName, Consts.Default), 25);
             DefaultSpawnRates.Add((DieGambler.itemName, Consts.Experimentation), 13);
             DefaultSpawnRates.Add((DieGambler.itemName, Consts.Assurance), 13);
             DefaultSpawnRates.Add((DieGambler.itemName, Consts.Vow), 15);
@@ -248,6 +252,7 @@ namespace MysteryDice
             DefaultSpawnRates.Add((DieGambler.itemName, Consts.Dine), 46);
             DefaultSpawnRates.Add((DieGambler.itemName, Consts.Titan), 30);
 
+            DefaultSpawnRates.Add((DieChronos.itemName, Consts.Default), 23);
             DefaultSpawnRates.Add((DieChronos.itemName, Consts.Experimentation), 17);
             DefaultSpawnRates.Add((DieChronos.itemName, Consts.Assurance), 17);
             DefaultSpawnRates.Add((DieChronos.itemName, Consts.Vow), 17);
@@ -257,6 +262,7 @@ namespace MysteryDice
             DefaultSpawnRates.Add((DieChronos.itemName, Consts.Dine), 41);
             DefaultSpawnRates.Add((DieChronos.itemName, Consts.Titan), 33);
 
+            DefaultSpawnRates.Add((DieSacrificer.itemName, Consts.Default), 20);
             DefaultSpawnRates.Add((DieSacrificer.itemName, Consts.Experimentation), 20);
             DefaultSpawnRates.Add((DieSacrificer.itemName, Consts.Assurance), 20);
             DefaultSpawnRates.Add((DieSacrificer.itemName, Consts.Vow), 20);
@@ -266,6 +272,7 @@ namespace MysteryDice
             DefaultSpawnRates.Add((DieSacrificer.itemName, Consts.Dine), 38);
             DefaultSpawnRates.Add((DieSacrificer.itemName, Consts.Titan), 23);
 
+            DefaultSpawnRates.Add((DieSaint.itemName, Consts.Default), 10);
             DefaultSpawnRates.Add((DieSaint.itemName, Consts.Experimentation), 10);
             DefaultSpawnRates.Add((DieSaint.itemName, Consts.Assurance), 10);
             DefaultSpawnRates.Add((DieSaint.itemName, Consts.Vow), 10);
@@ -275,6 +282,7 @@ namespace MysteryDice
             DefaultSpawnRates.Add((DieSaint.itemName, Consts.Dine), 15);
             DefaultSpawnRates.Add((DieSaint.itemName, Consts.Titan), 12);
 
+            DefaultSpawnRates.Add((DieRusty.itemName, Consts.Default), 18);
             DefaultSpawnRates.Add((DieRusty.itemName, Consts.Experimentation), 15);
             DefaultSpawnRates.Add((DieRusty.itemName, Consts.Assurance), 15);
             DefaultSpawnRates.Add((DieRusty.itemName, Consts.Vow), 5);
@@ -295,7 +303,15 @@ namespace MysteryDice
             {
                 if (die == DieEmergency) continue;
 
-                foreach(KeyValuePair<string,Levels.LevelTypes> level in RegLevels)
+                ConfigEntry<int> defaultRate = BepInExConfig.Bind<int>(
+                    die.itemName + " Spawn rates",
+                    "Default",
+                    DefaultSpawnRates[(die.itemName, Consts.Default)],
+                    "Default spawn rate for all levels. Mainly for setting up spawn rates for either new beta moons or modded ones."
+                );
+                
+
+                foreach (KeyValuePair<string,Levels.LevelTypes> level in RegLevels)
                 {
                     ConfigEntry<int> rate = BepInExConfig.Bind<int>(
                         die.itemName + " Spawn rates",
@@ -303,9 +319,10 @@ namespace MysteryDice
                         DefaultSpawnRates[(die.itemName, level.Key)],
                         "Sets how often this item spawns on this level. 0-10 is very rare, 10-25 is rare, 25+ is common. This is only from my observations."
                     );
-
                     Items.RegisterScrap(die, rate.Value, level.Value);
                 }
+
+                Items.RegisterScrap(die, defaultRate.Value, Levels.LevelTypes.All);
             }
         }
     }
