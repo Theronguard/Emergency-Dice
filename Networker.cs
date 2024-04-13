@@ -174,7 +174,7 @@ namespace MysteryDice
         IEnumerator SpawnExplosionAfterSFX(Vector3 position)
         {
             yield return new WaitForSeconds(0.5f);
-            Landmine.SpawnExplosion(position, true, 1, 5);
+            Misc.SpawnExplosion(position, true, 1, 5);
         }
         #endregion
 
@@ -510,7 +510,7 @@ namespace MysteryDice
         [ClientRpc]
         public void DetonateAtPosClientRPC(Vector3 position)
         {
-            Landmine.SpawnExplosion(position, true, 1, 5);
+            Misc.SpawnExplosion(position, true, 1, 5);
         }
         #endregion
 

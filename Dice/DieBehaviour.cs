@@ -93,7 +93,7 @@ namespace MysteryDice.Dice
 
             yield return new WaitForSeconds(3f);
 
-            Landmine.SpawnExplosion(gameObject.transform.position, true, 0, 0);
+            Misc.SpawnExplosion(gameObject.transform.position, true, 0, 0);
             DestroyObject();
 
             if (GameNetworkManager.Instance.localPlayerController.playerClientId == userID)
