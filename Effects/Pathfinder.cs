@@ -137,7 +137,7 @@ namespace MysteryDice.Effects
 
                 if (endDistance < DistanceTolerance)
                 {
-                    Misc.SpawnExplosion(transform.position, true, 0, 0);
+                    Landmine.SpawnExplosion(transform.position, true, 0, 0);
                     Destroy(this.gameObject);
                 }
             }
