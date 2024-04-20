@@ -227,6 +227,7 @@ namespace MysteryDice.Dice
         {
             ConfigFile configFile = new ConfigFile(Path.Combine(Paths.ConfigPath, "Emergency Dice.cfg"), true);
 
+            AllEffects.Add(new HyperShake());
             AllEffects.Add(new MovingLandmines());
             AllEffects.Add(new OutsideCoilhead());
             AllEffects.Add(new Arachnophobia());

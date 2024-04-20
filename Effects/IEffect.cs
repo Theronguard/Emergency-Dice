@@ -16,6 +16,9 @@ namespace MysteryDice.Effects
         Great
     }
 
+    /// <summary>
+    /// This would probably work better as an abstract class, but if it works it works.
+    /// </summary>
     public interface IEffect
     {
         EffectType Outcome { get; }

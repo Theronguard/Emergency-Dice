@@ -81,6 +81,7 @@ namespace MysteryDice.Patches
             TurretPatch.FastCharging = false;
             BrightFlashlight.IsEnabled = false;
             PlayerControllerBPatch.HasInfiniteStamina = false;
+            HyperShake.ShakingData = null;
             Networker.Instance.StopAllCoroutines();
 
             if (Networker.Instance.IsServer)

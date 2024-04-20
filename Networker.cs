@@ -56,6 +56,7 @@ namespace MysteryDice
         {
             UpdateMineTimers();
             Armageddon.BoomTimer();
+            HyperShake.FixedUpdate();
         }
         void Update()
         {
@@ -535,7 +536,6 @@ namespace MysteryDice
         }
         #endregion
 
-
         #region AlarmCurse
 
         [ServerRpc(RequireOwnership=false)]
@@ -806,6 +806,7 @@ namespace MysteryDice
         #endregion
 
         #region Moving mines
+
         [ServerRpc(RequireOwnership = false)]
         public void MovingMinesInitServerRPC()
         {
@@ -855,6 +856,39 @@ namespace MysteryDice
             }
             
         }
+        #endregion
+
+        #region HyperShake
+
+        [ServerRpc(RequireOwnership = false)]
+        public void HyperShakeServerRPC()
+        {
+            List<PlayerControllerB> validPlayers = new List<PlayerControllerB>();
+
+            foreach (GameObject playerPrefab in StartOfRound.Instance.allPlayerObjects)
+            {
+                PlayerControllerB player = playerPrefab.GetComponent<PlayerControllerB>();
+                if (IsPlayerAliveAndControlled(player))
+                    validPlayers.Add(player);
+            }
+
+            PlayerControllerB selectedPlayer = validPlayers[UnityEngine.Random.Range(0, validPlayers.Count)];
+
+            HyperShakeClientRPC(selectedPlayer.playerClientId);
+        }
+
+        [ClientRpc]
+        public void HyperShakeClientRPC(ulong playerID)
+        {
+            if (GameNetworkManager.Instance.localPlayerController.playerClientId != playerID) return;
+
+            HyperShake.ShakeData shakeData = new HyperShake.ShakeData();
+            shakeData.Player = GameNetworkManager.Instance.localPlayerController;
+            shakeData.NextShakeTimer = 0f;
+            shakeData.ShakingTimer = 0f;
+            HyperShake.ShakingData = shakeData;
+        }
+
         #endregion
     }
 }

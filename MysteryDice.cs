@@ -20,7 +20,7 @@ namespace MysteryDice
     {
         private const string modGUID = "Theronguard.EmergencyDice";
         private const string modName = "Emergency Dice";
-        private const string modVersion = "1.1.19";
+        private const string modVersion = "1.1.21";
 
         private readonly Harmony harmony = new Harmony(modGUID);
         public static ManualLogSource CustomLogger;
@@ -86,6 +86,7 @@ namespace MysteryDice
             harmony.PatchAll();
             CustomLogger.LogInfo("The Emergency Dice mod was initialized!");
         }
+
         private static void NetcodeWeaver()
         {
             var types = Assembly.GetExecutingAssembly().GetTypes();

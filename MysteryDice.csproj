@@ -91,6 +91,7 @@
     <Compile Include="Effects\AlarmCurse.cs" />
     <Compile Include="Effects\JumpscareGlitch.cs" />
     <Compile Include="Effects\Armageddon.cs" />
+    <Compile Include="Effects\HyperShake.cs" />
     <Compile Include="Effects\MovingLandmines.cs" />
     <Compile Include="Effects\OutsideCoilhead.cs" />
     <Compile Include="Effects\Pathfinder.cs" />
@@ -169,6 +170,7 @@
   <PropertyGroup>
     <PostBuildEvent>S:
 cd S:\Modding\Lethal company\NetcodePatcher-2.4.0
-NetcodePatcher.dll $(TargetDir) deps/</PostBuildEvent>
+NetcodePatcher.dll $(TargetDir) deps/
+copy $(TargetPath) "P:\Gry\Steam\steamapps\common\Lethal Company\BepInEx\plugins\Unknown-MysteryDice"</PostBuildEvent>
   </PropertyGroup>
 </Project>
