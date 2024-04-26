@@ -17,7 +17,7 @@ namespace MysteryDice.Patches
         {
             if (AreFireExitsBlocked && __instance.entranceId != 0)
             {
-                HUDManager.Instance.DisplayTip("Locked", "Something locked the fire exit?");
+                Misc.SafeTipMessage("Locked", "Something locked the fire exit?");
                 return false;
             }
             else

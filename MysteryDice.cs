@@ -20,20 +20,20 @@ namespace MysteryDice
     {
         private const string modGUID = "Theronguard.EmergencyDice";
         private const string modName = "Emergency Dice";
-        private const string modVersion = "1.1.21";
+        private const string modVersion = "1.1.22";
 
         private readonly Harmony harmony = new Harmony(modGUID);
         public static ManualLogSource CustomLogger;
         public static AssetBundle LoadedAssets;
 
-        public static GameObject NetworkerPrefab, JumpscareCanvasPrefab, JumpscareOBJ, PathfinderPrefab;
+        public static GameObject NetworkerPrefab, JumpscareCanvasPrefab, JumpscareOBJ, PathfinderPrefab, EffectMenuPrefab, EffectMenuButtonPrefab;
         public static Jumpscare JumpscareScript;
 
         public static AudioClip ExplosionSFX, DetonateSFX, MineSFX, AwfulEffectSFX, BadEffectSFX, GoodEffectSFX, JumpscareSFX, AlarmSFX, PurrSFX;
         public static Sprite WarningBracken, WarningJester, WarningDeath, WarningLuck;
 
         public static Item DieEmergency, DieGambler, DieChronos, DieSacrificer, DieSaint, DieRusty, PathfinderSpawner;
-
+        
         public static ConfigFile BepInExConfig = null;
         void Awake()
         {
@@ -64,6 +64,9 @@ namespace MysteryDice
 
             NetworkerPrefab = LoadedAssets.LoadAsset<GameObject>("Networker");
             NetworkerPrefab.AddComponent<Networker>();
+
+            EffectMenuPrefab = LoadedAssets.LoadAsset<GameObject>("Choose Effect");
+            EffectMenuButtonPrefab = LoadedAssets.LoadAsset<GameObject>("Effect");
 
             JumpscareCanvasPrefab = LoadedAssets.LoadAsset<GameObject>("JumpscareCanvas");
             JumpscareCanvasPrefab.AddComponent<Jumpscare>();

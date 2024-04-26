@@ -35,19 +35,19 @@ namespace MysteryDice.Dice
                 {
                     case 3:
                         Networker.Instance.JackpotServerRPC(PlayerUser.actualClientId, UnityEngine.Random.Range(1, 2));
-                        HUDManager.Instance.DisplayTip($"Rolled 3", "Spawning some scrap");
+                        Misc.SafeTipMessage($"Rolled 3", "Spawning some scrap");
                         break;
                     case 4:
                         Networker.Instance.JackpotServerRPC(PlayerUser.actualClientId, UnityEngine.Random.Range(3, 4));
-                        HUDManager.Instance.DisplayTip($"Rolled 4", "Spawning scrap");
+                        Misc.SafeTipMessage($"Rolled 4", "Spawning scrap");
                         break;
                     case 5:
                         Networker.Instance.JackpotServerRPC(PlayerUser.actualClientId, UnityEngine.Random.Range(5, 6));
-                        HUDManager.Instance.DisplayTip($"Rolled 5", "Spawning more scrap");
+                        Misc.SafeTipMessage($"Rolled 5", "Spawning more scrap");
                         break;
                     case 6:
                         Networker.Instance.JackpotServerRPC(PlayerUser.actualClientId, UnityEngine.Random.Range(7, 8));
-                        HUDManager.Instance.DisplayTip($"Rolled 6", "Spawning a lot of scrap!");
+                        Misc.SafeTipMessage($"Rolled 6", "Spawning a lot of scrap!");
                         break;
                 }
             }

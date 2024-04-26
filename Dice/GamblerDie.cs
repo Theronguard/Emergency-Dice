@@ -54,14 +54,14 @@ namespace MysteryDice.Dice
 
             if (isOutside)
             {
-                HUDManager.Instance.DisplayTip($"Penalty", "Next time roll it inside :)");
+                Misc.SafeTipMessage($"Penalty", "Next time roll it inside :)");
                 return;
             }
 
             if (randomEffect.ShowDefaultTooltip)
                 ShowDefaultTooltip(randomEffect.Outcome, diceRoll);
             else
-                HUDManager.Instance.DisplayTip($"Rolled {diceRoll}", randomEffect.Tooltip);
+                Misc.SafeTipMessage($"Rolled {diceRoll}", randomEffect.Tooltip);
         }
     }
 }

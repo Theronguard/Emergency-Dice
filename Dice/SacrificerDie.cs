@@ -36,13 +36,13 @@ namespace MysteryDice.Dice
 
             if (diceRoll == 1)
             {
-                HUDManager.Instance.DisplayTip($"Rolled 1...", "Run");
+                Misc.SafeTipMessage($"Rolled 1...", "Run");
                 randomEffect = GetRandomEffect(diceRoll, Effects);
                 randomEffect.Use();
                 Networker.Instance.LogEffectsToOwnerServerRPC(PlayerUser.playerUsername, randomEffect.Name);
             }
             else
-                HUDManager.Instance.DisplayTip($"Rolled {diceRoll}", EffectText(randomEffect.Outcome));
+                Misc.SafeTipMessage($"Rolled {diceRoll}", EffectText(randomEffect.Outcome));
 
             new ReturnToShip().Use();
         }

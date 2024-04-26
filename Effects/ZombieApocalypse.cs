@@ -14,7 +14,6 @@ namespace MysteryDice.Effects
         public void Use()
         {
             int amountToSpawn = UnityEngine.Random.Range(8, 20);
-            HUDManager.Instance.DisplayTip(":)","");
             if(GetEnemies.Masked == null)
                 return;
 

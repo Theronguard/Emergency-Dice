@@ -56,7 +56,7 @@ namespace MysteryDice.Dice
             if (randomEffect.ShowDefaultTooltip)
                 ShowDefaultTooltip(randomEffect.Outcome, diceRoll);
             else
-                HUDManager.Instance.DisplayTip($"Rolled {diceRoll}", randomEffect.Tooltip);
+                Misc.SafeTipMessage($"Rolled {diceRoll}", randomEffect.Tooltip);
         }
     }
 }

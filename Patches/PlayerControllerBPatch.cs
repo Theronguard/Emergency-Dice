@@ -1,14 +1,7 @@
 ﻿using HarmonyLib;
-using LethalLib;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Unity.Netcode;
-using UnityEngine;
 using MysteryDice.Effects;
 using GameNetcodeStuff;
+using UnityEngine;
 
 namespace MysteryDice.Patches
 {
@@ -35,6 +28,21 @@ namespace MysteryDice.Patches
         {
             if (HasInfiniteStamina)
                 ___sprintMeter = 1f;
+        }
+
+        [HarmonyPostfix]
+        [HarmonyPatch("Update")]
+        public static void FlyMode(PlayerControllerB __instance)
+        {
+            if (!Fly.CanFly) return;
+
+            if (IngamePlayerSettings.Instance.playerInput.actions.FindAction("Sprint").ReadValue<float>() > 0.5f)
+            {
+                __instance.externalForces += Vector3.Lerp(__instance.externalForces, Vector3.ClampMagnitude(__instance.transform.up * 10, 400f), Time.deltaTime * 50f);
+                __instance.fallValue = 0f;
+                __instance.ResetFallGravity();
+            }
+
         }
     }
 }

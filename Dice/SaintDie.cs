@@ -32,16 +32,27 @@ namespace MysteryDice.Dice
         {
             int diceRoll = UnityEngine.Random.Range(1,7);
 
+            if (diceRoll == 1)
+            {
+                Misc.SafeTipMessage($"Rolled 1", "Nothing happened");
+                return;
+            }
+
             IEffect randomEffect = GetRandomEffect(diceRoll, Effects);
 
             PlaySoundBasedOnEffect(randomEffect.Outcome);
+
+            if(diceRoll == 6)
+            {
+                SelectEffect.ShowSelectMenu();
+                Misc.SafeTipMessage($"Rolled 6", "Choose an effect");
+                return;
+            }
+
             randomEffect.Use();
             Networker.Instance.LogEffectsToOwnerServerRPC(PlayerUser.playerUsername, randomEffect.Name);
 
-            if (diceRoll == 1)
-                HUDManager.Instance.DisplayTip($"Rolled 1", "Nothing happened");
-            else
-                HUDManager.Instance.DisplayTip($"Rolled {diceRoll}", randomEffect.Tooltip);
+            Misc.SafeTipMessage($"Rolled {diceRoll}", randomEffect.Tooltip);
         }
     }
 }

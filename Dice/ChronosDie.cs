@@ -1,12 +1,6 @@
 ﻿using KaimiraGames;
 using MysteryDice.Effects;
-using System;
-using System.Collections;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using UnityEngine;
+
 
 namespace MysteryDice.Dice
 {
@@ -61,14 +55,14 @@ namespace MysteryDice.Dice
 
             if (isOutside)
             {
-                HUDManager.Instance.DisplayTip($"Penalty", "Next time roll it inside :)");
+                Misc.SafeTipMessage($"Penalty", "Next time roll it inside :)");
                 return;
             }
 
             if (randomEffect.ShowDefaultTooltip)
                 ShowDefaultTooltip(randomEffect.Outcome, diceRoll);
             else
-                HUDManager.Instance.DisplayTip($"Rolled {diceRoll}", randomEffect.Tooltip);
+                Misc.SafeTipMessage($"Rolled {diceRoll}", randomEffect.Tooltip);
         }
     }
 }

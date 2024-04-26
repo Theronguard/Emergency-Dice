@@ -82,6 +82,20 @@ namespace MysteryDice.Patches
             BrightFlashlight.IsEnabled = false;
             PlayerControllerBPatch.HasInfiniteStamina = false;
             HyperShake.ShakingData = null;
+
+            if (LeverShake.IsShaking)
+            {
+                LeverShake.ShipLeverTrigger.transform.localPosition = LeverShake.InitialLevelTriggerLocalPosition;
+                LeverShake.ShipLever.transform.localPosition = LeverShake.InitialLevelTriggerLocalPosition;
+            }
+                
+            LeverShake.IsShaking = false;
+            LeverShake.ShipLeverTrigger = null;
+
+            Fly.CanFly = false;
+
+            SelectEffect.CloseSelectMenu();
+               
             Networker.Instance.StopAllCoroutines();
 
             if (Networker.Instance.IsServer)

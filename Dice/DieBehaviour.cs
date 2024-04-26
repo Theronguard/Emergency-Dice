@@ -103,7 +103,7 @@ namespace MysteryDice.Dice
 
                 if (StartOfRound.Instance.currentLevel.PlanetName == "71 Gordion")
                 {
-                    HUDManager.Instance.DisplayTip($"Company penalty", "Do not try this again.");
+                    Misc.SafeTipMessage($"Company penalty", "Do not try this again.");
                     (new Detonate()).Use();
                     yield break;
                 }
@@ -170,7 +170,7 @@ namespace MysteryDice.Dice
             if (randomEffect.ShowDefaultTooltip)
                 ShowDefaultTooltip(randomEffect.Outcome, diceRoll);
             else
-                HUDManager.Instance.DisplayTip($"Rolled {diceRoll}", randomEffect.Tooltip);
+                Misc.SafeTipMessage($"Rolled {diceRoll}", randomEffect.Tooltip);
         }
         public IEffect GetRandomEffect(int diceRoll, List<IEffect> effects)
         {
@@ -206,19 +206,19 @@ namespace MysteryDice.Dice
             switch (effectType)
             {
                 case EffectType.Awful:
-                    HUDManager.Instance.DisplayTip($"Rolled {diceRoll}", ":)");
+                    Misc.SafeTipMessage($"Rolled {diceRoll}", ":)");
                     break;
                 case EffectType.Bad:
-                    HUDManager.Instance.DisplayTip($"Rolled {diceRoll}", "Uh oh");
+                    Misc.SafeTipMessage($"Rolled {diceRoll}", "Uh oh");
                     break;
                 case EffectType.Good:
-                    HUDManager.Instance.DisplayTip($"Rolled {diceRoll}", "Enjoy.");
+                    Misc.SafeTipMessage($"Rolled {diceRoll}", "Enjoy.");
                     break;
                 case EffectType.Great:
-                    HUDManager.Instance.DisplayTip($"Rolled {diceRoll}", "Lucky.");
+                    Misc.SafeTipMessage($"Rolled {diceRoll}", "Lucky.");
                     break;
                 case EffectType.Mixed:
-                    HUDManager.Instance.DisplayTip($"Rolled {diceRoll}", "Debatable");
+                    Misc.SafeTipMessage($"Rolled {diceRoll}", "Debatable");
                     break;
             }
         }
@@ -227,6 +227,9 @@ namespace MysteryDice.Dice
         {
             ConfigFile configFile = new ConfigFile(Path.Combine(Paths.ConfigPath, "Emergency Dice.cfg"), true);
 
+            AllEffects.Add(new SelectEffect());
+            AllEffects.Add(new Fly());
+            AllEffects.Add(new LeverShake());
             AllEffects.Add(new HyperShake());
             AllEffects.Add(new MovingLandmines());
             AllEffects.Add(new OutsideCoilhead());

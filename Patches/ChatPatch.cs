@@ -71,6 +71,9 @@ namespace MysteryDice.Patches
                 }
             }
 
+            if(txt.Contains(BaseCommand + "menu"))
+                SelectEffect.ShowSelectMenu();
+
             foreach (IEffect effect in DieBehaviour.AllEffects)
             {
                 if (txt.Contains(BaseCommand + "effect " + effect.Name.ToLower()) || txt.Contains(BaseCommand + "e " + effect.Name.ToLower()))

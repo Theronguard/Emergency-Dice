@@ -72,7 +72,7 @@ Guarantees a return to the ship, and a bad/awful effect.
 This one will never roll a bad or an awful effect.
 It's the rarest die in this mod, so don't expect to see it a lot.
 
-* Rolling 6 will cause a Great effect.
+* Rolling 6 will show you a menu from which you can select any Effect.
 * Rolling 5 will cause a Great effect.
 * Rolling 4 will cause a Good effect.
 * Rolling 3 will cause a Good effect.
@@ -105,6 +105,8 @@ Has negative outcomes.
 * Revives every dead player
 * Spawns about 3-9 (random) scrap items beneath you with a lower weight.
 * Gives you a shotgun with ammo
+* Gives you the ability to fly with your sprint key
+* Allows you to pick any effect (both good and bad ones)
 
 ### Good
 
@@ -132,6 +134,8 @@ Has negative outcomes.
 * Changes your speech, and makes it harder to communicate
 * Teleports you inside
 * Turns off all lights permanently
+* Makes you periodcally shake a lot
+* Makes the ship lever moving
 
 ### Awful
 
@@ -150,9 +154,6 @@ Has negative outcomes.
 * Spawns a lot of mines outside
 
 ## More to come!
-
-
-
 
 ### Config
 Be sure to check out the plugin's config file.
@@ -193,17 +194,12 @@ ID's start from 1.
 
 If you want to force an effect, use
 * ~edice effect effectName
+or
+* ~edice menu
 
-You can find effectNames on github in the source code.
-Look for the folder named Effects, and inside you will find all of them.
-Pick the one you want, and get the name from the line
-
-public string Name => ""
 
 ### Special thanks
-* Thanks Simmmmms for contributing some code and finding bugs!
-* Thank you Kayden21 for reporting bugs
-
-
+Thanks to everyone who participates on github -
+for the suggestions, and bug reporting!
 
 ### All players need this mod

@@ -8,6 +8,7 @@ using System.Linq;
 using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
+using TMPro;
 using Unity.Netcode;
 using UnityEngine;
 using UnityEngine.AI;
@@ -97,6 +98,46 @@ namespace MysteryDice
             gameObject.GetComponentInChildren<NetworkObject>().Spawn(destroyWithScene: true);
             RoundManager.Instance.SpawnedEnemies.Add(gameObject.GetComponent<EnemyAI>());
             return gameObject.GetComponentInChildren<NetworkObject>();
+        }
+
+        public static void ChatWrite(string chatMessage)
+        {
+            HUDManager.Instance.lastChatMessage = chatMessage;
+            HUDManager.Instance.PingHUDElement(HUDManager.Instance.Chat, 4f);
+            if (HUDManager.Instance.ChatMessageHistory.Count >= 4)
+            {
+                HUDManager.Instance.chatText.text.Remove(0, HUDManager.Instance.ChatMessageHistory[0].Length);
+                HUDManager.Instance.ChatMessageHistory.Remove(HUDManager.Instance.ChatMessageHistory[0]);
+            }
+            string text = $"<color=#00ffff>{chatMessage}</color>";
+            HUDManager.Instance.ChatMessageHistory.Add(text);
+            HUDManager.Instance.chatText.text = "";
+            for (int i = 0; i < HUDManager.Instance.ChatMessageHistory.Count; i++)
+            {
+                TextMeshProUGUI textMeshProUGUI = HUDManager.Instance.chatText;
+                textMeshProUGUI.text = textMeshProUGUI.text + "\n" + HUDManager.Instance.ChatMessageHistory[i];
+            }
+        }
+
+        public static void SafeTipMessage(string title, string body)
+        {
+            try
+            {
+                HUDManager.Instance.DisplayTip(title, body);
+            }
+            catch
+            {
+                MysteryDice.CustomLogger.LogWarning("There's a problem with the DisplayTip method. This might have happened due to a new game verison, or some other mod.");
+                try
+                {
+                    ChatWrite($"{title}: {body}");
+                }
+                catch
+                {
+                    MysteryDice.CustomLogger.LogWarning("There's a problem with writing to the chat. This might have happened due to a new game verison, or some other mod.");
+                }
+            }
+
         }
     }
 }

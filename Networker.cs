@@ -57,6 +57,7 @@ namespace MysteryDice
             UpdateMineTimers();
             Armageddon.BoomTimer();
             HyperShake.FixedUpdate();
+            LeverShake.FixedUpdate();
         }
         void Update()
         {
@@ -887,6 +888,23 @@ namespace MysteryDice
             shakeData.NextShakeTimer = 0f;
             shakeData.ShakingTimer = 0f;
             HyperShake.ShakingData = shakeData;
+        }
+
+        #endregion
+
+        #region Lever Shake
+
+        [ServerRpc(RequireOwnership = false)]
+        public void LeverShakeServerRPC()
+        {
+            LeverShake.ServerUse();
+            LeverShakeClientRPC();
+        }
+
+        [ClientRpc]
+        public void LeverShakeClientRPC()
+        {
+            LeverShake.ClientsUse();
         }
 
         #endregion
