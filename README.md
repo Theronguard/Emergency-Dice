@@ -152,6 +152,7 @@ Has negative outcomes.
 * Spawns a lot of zombies inside
 * Teleports you to the ship, but leaves a zombie in your place
 * Spawns a lot of mines outside
+* Breaks a neck of a random player
 
 ## More to come!
 

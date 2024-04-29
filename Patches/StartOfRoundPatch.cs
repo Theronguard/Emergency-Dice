@@ -95,6 +95,8 @@ namespace MysteryDice.Patches
             Fly.CanFly = false;
 
             SelectEffect.CloseSelectMenu();
+
+            NeckBreak.FixNeck();
                
             Networker.Instance.StopAllCoroutines();
 

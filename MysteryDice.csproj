@@ -94,6 +94,7 @@
     <Compile Include="Dice\EmergencyDie.cs" />
     <Compile Include="Dice\ChronosDie.cs" />
     <Compile Include="Dice\GamblerDie.cs" />
+    <Compile Include="Effects\NeckBreak.cs" />
     <Compile Include="Effects\SelectEffect.cs" />
     <Compile Include="Effects\Fly.cs" />
     <Compile Include="Effects\LeverShake.cs" />

@@ -30,7 +30,7 @@ namespace MysteryDice.Effects
                 PlayerControllerB player = playerPrefab.GetComponent<PlayerControllerB>();
 
                 if (player == null) continue;
-                if (!Networker.IsPlayerAliveAndControlled(player)) continue;
+                if (!Misc.IsPlayerAliveAndControlled(player)) continue;
 
                 if (callerID == player.playerClientId)
                 {
@@ -48,7 +48,7 @@ namespace MysteryDice.Effects
                 PlayerControllerB player = playerPrefab.GetComponent<PlayerControllerB>();
 
                 if (player == null) continue;
-                if (!Networker.IsPlayerAliveAndControlled(player)) continue;
+                if (!Misc.IsPlayerAliveAndControlled(player)) continue;
 
                 if (Vector3.Distance(player.transform.position, caller.transform.position) < DistanceToCaller)
                 {

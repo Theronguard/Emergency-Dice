@@ -99,13 +99,7 @@ namespace MysteryDice
         private static ulong PlayerIDToExplode;
         private static float ExplosionTimer = 0f;
 
-        public static bool IsPlayerAliveAndControlled(PlayerControllerB player)
-        {
-            return !player.isPlayerDead &&
-                    player.isActiveAndEnabled &&
-                    player.IsSpawned &&
-                    player.isPlayerControlled;
-        }
+        
 
         public static bool IsPlayerAlive(PlayerControllerB player)
         {
@@ -147,7 +141,7 @@ namespace MysteryDice
             foreach (GameObject playerPrefab in StartOfRound.Instance.allPlayerObjects)
             {
                 PlayerControllerB player = playerPrefab.GetComponent<PlayerControllerB>();
-                if (IsPlayerAliveAndControlled(player))
+                if (Misc.IsPlayerAliveAndControlled(player))
                     validPlayers.Add(player);
             }
 
@@ -164,7 +158,7 @@ namespace MysteryDice
             {
                 PlayerControllerB player = playerPrefab.GetComponent<PlayerControllerB>();
                 if (player.playerClientId == clientID &&
-                    IsPlayerAliveAndControlled(player))
+                    Misc.IsPlayerAliveAndControlled(player))
                 {
                     AudioSource.PlayClipAtPoint(MysteryDice.MineSFX, player.transform.position);
                     StartCoroutine(SpawnExplosionAfterSFX(player.transform.position));
@@ -326,9 +320,9 @@ namespace MysteryDice
             {
                 PlayerControllerB player = playerPrefab.GetComponent<PlayerControllerB>();
 
-                if (IsPlayerAliveAndControlled(player) && player.playerClientId != userID)
+                if (Misc.IsPlayerAliveAndControlled(player) && player.playerClientId != userID)
                     validPlayers.Add(player);
-                if (IsPlayerAliveAndControlled(player) && player.playerClientId == userID)
+                if (Misc.IsPlayerAliveAndControlled(player) && player.playerClientId == userID)
                     callingPlayer = player;
             }
 
@@ -386,7 +380,7 @@ namespace MysteryDice
                 PlayerControllerB player = playerPrefab.GetComponent<PlayerControllerB>();
 
                 if (player == null) continue;
-                if (!IsPlayerAliveAndControlled(player)) continue;
+                if (!Misc.IsPlayerAliveAndControlled(player)) continue;
 
                 Heal(player);
                 HUDManager.Instance.UpdateHealthUI(player.health,false);
@@ -869,7 +863,7 @@ namespace MysteryDice
             foreach (GameObject playerPrefab in StartOfRound.Instance.allPlayerObjects)
             {
                 PlayerControllerB player = playerPrefab.GetComponent<PlayerControllerB>();
-                if (IsPlayerAliveAndControlled(player))
+                if (Misc.IsPlayerAliveAndControlled(player))
                     validPlayers.Add(player);
             }
 
@@ -908,6 +902,30 @@ namespace MysteryDice
         }
 
         #endregion
+
+        #region Neck Break
+        [ServerRpc(RequireOwnership = false)]
+        public void NeckBreakRandomPlayerServerRpc()
+        {
+            if (StartOfRound.Instance == null) return;
+            if (StartOfRound.Instance.inShipPhase || !StartOfRound.Instance.shipHasLanded) return;
+
+            NeckBreakRandomPlayerClientRpc(Misc.GetRandomAlivePlayer().playerClientId);
+        }
+
+        [ClientRpc]
+        public void NeckBreakRandomPlayerClientRpc(ulong playerId)
+        {
+            if (StartOfRound.Instance == null) return;
+            if (StartOfRound.Instance.inShipPhase || !StartOfRound.Instance.shipHasLanded) return;
+
+            if(playerId == GameNetworkManager.Instance.localPlayerController.playerClientId)
+            {
+                NeckBreak.BreakNeck();
+            }
+        }
+        #endregion
+
     }
 }
 

@@ -32,7 +32,7 @@ namespace MysteryDice.Effects
         {
             foreach(PlayerControllerB player in StartOfRound.Instance.allPlayerScripts)
             {
-                if (!Networker.IsPlayerAliveAndControlled(player)) continue;
+                if (!Misc.IsPlayerAliveAndControlled(player)) continue;
                 if (!player.isInsideFactory) continue;
 
                 GameObject obj = UnityEngine.Object.Instantiate(MysteryDice.PathfinderPrefab,

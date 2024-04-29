@@ -44,5 +44,15 @@ namespace MysteryDice.Patches
             }
 
         }
+
+        [HarmonyPostfix]
+        [HarmonyPatch("Update")]
+        public static void BreakNeckUpdate(PlayerControllerB __instance)
+        {
+            if (!NeckBreak.IsNeckBroken) return;
+
+            Transform cam = GameNetworkManager.Instance.localPlayerController.gameplayCamera.transform;
+            cam.eulerAngles = new Vector3(cam.eulerAngles.x, cam.eulerAngles.y, 90f);
+        }
     }
 }

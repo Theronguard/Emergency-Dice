@@ -31,17 +31,25 @@ namespace MysteryDice.Effects
         public static void PitchFluctuate()
         {
             if (!FluctuatePitch) return;
-            CumulativeRandomFreq += UnityEngine.Random.Range(-0.5f, 0.5f);
-            CumulativeRandomFreq = Mathf.Clamp(CumulativeRandomFreq, -1f, 1f)*Time.deltaTime;
+
+            CumulativeRandomFreq += UnityEngine.Random.Range(-0.5f, 0.5f) * Time.deltaTime;
+            CumulativeRandomFreq = Mathf.Clamp(CumulativeRandomFreq, -1f, 1f);
             PitchSwitchTimer -= Time.deltaTime;
             if (PitchSwitchTimer <= 0f)
             {
-                PitchSwitchTimer = PitchSwitchTime;
-                for (int i = 0; i < StartOfRound.Instance.allPlayerScripts.Length; i++)
-                    if (StartOfRound.Instance.allPlayerScripts[i].isPlayerControlled)
+                try
+                {
+                    PitchSwitchTimer = PitchSwitchTime;
+                    for (int i = 0; i < StartOfRound.Instance.allPlayerScripts.Length; i++)
                         SoundManager.Instance.SetPlayerPitch(
-                            Misc.Map(Mathf.Sin((2f+ CumulativeRandomFreq) *Mathf.PI*Time.time + i)
-                            ,-1f,1f,0.6f,1.4f), i);
+                            Misc.Map(Mathf.Sin((2f + CumulativeRandomFreq) * Mathf.PI * Time.time)
+                            , -1f, 1f, 0.6f, 1.4f), i);
+                }
+                catch(Exception ex)
+                {
+                    MysteryDice.CustomLogger.LogWarning($"There's a problem with the pitch fluctuate effect: {ex.Message}");
+                }
+                
             }
         }
     }

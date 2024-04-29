@@ -139,5 +139,27 @@ namespace MysteryDice
             }
 
         }
+
+        public static PlayerControllerB GetRandomAlivePlayer()
+        {
+            List<PlayerControllerB> validPlayers = new List<PlayerControllerB>();
+
+            foreach (GameObject playerPrefab in StartOfRound.Instance.allPlayerObjects)
+            {
+                PlayerControllerB player = playerPrefab.GetComponent<PlayerControllerB>();
+                if (IsPlayerAliveAndControlled(player))
+                    validPlayers.Add(player);
+            }
+
+            return validPlayers[UnityEngine.Random.Range(0, validPlayers.Count)];
+        }
+
+        public static bool IsPlayerAliveAndControlled(PlayerControllerB player)
+        {
+            return !player.isPlayerDead &&
+                    player.isActiveAndEnabled &&
+                    player.IsSpawned &&
+                    player.isPlayerControlled;
+        }
     }
 }
