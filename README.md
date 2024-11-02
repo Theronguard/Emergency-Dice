@@ -2,6 +2,15 @@
 
 This mod adds new items (equipment and scrap)
 
+## Emergency Dice Updated
+Hey! I don't have much time and drive to maintain this mod,
+and a fellow modder @slayer6409 seems to be doing a much better job than me!
+
+Check out the forked version!
+https://github.com/slayer6409/Emergency-Dice-Updated
+https://thunderstore.io/c/lethal-company/p/slayer6409/Emergency_Dice_Updated/
+
+
 ## Emergency Die
 
 ![](https://i.imgur.com/gGdBSz0.png)
